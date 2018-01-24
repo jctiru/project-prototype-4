@@ -28,15 +28,34 @@
 					// Sanitize POST array
 					$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 					$data = [
+						'image' => $_FILES['image']['name'],
+						'image_dir' => $_FILES['image']['tmp_name'],
 						'name' => trim($_POST['name']),
 						'description' => trim($_POST['description']),
 						'price' => $_POST['price'],
+						'image_err' => '',
 						'name_err' => '',
 						'description_err' => '',
 						'price_err' => '',
 					];
 
+					// Upload directory
+					$upload_dir = PUBLICROOT . "/img/";
+					// For checking if image already exists 
+					$target_file = $upload_dir . basename($data['image']);
+					// Get file extension
+					$imgExt = strtolower(pathinfo($data['image'],PATHINFO_EXTENSION));
+					// Valid extensions
+					$valid_extensions = array('jpeg', 'jpg', 'png', 'gif');
+
 					// Validate data
+					if(empty($data['image'])){
+						$data['image_err'] = "Please upload image";
+					} elseif (!in_array($imgExt, $valid_extensions)) {
+						$data['image_err'] = "Please upload valid image (jpeg, jpg, png, gif)";
+					} elseif (file_exists($target_file)){
+						$data['image_err'] = "Image already exists";
+					}
 					if(empty($data['name'])){
 						$data['name_err'] = "Please enter name";
 					}
@@ -48,9 +67,12 @@
 					}
 
 					// Make sure no errors
-					if(empty($data['name_err']) && empty($data['description_err']) && empty($data['price_err'])){
+					if(empty($data['name_err']) && empty($data['name_err']) && empty($data['description_err']) && empty($data['price_err'])){
 						// Validated
 						if($this->bookModel->addBook($data)){
+							// Copy upload file to system
+							move_uploaded_file($data['image_dir'], $upload_dir . $data['image']);
+
 							flash('book_message', 'Book Added');
 							redirect('books');
 						} else {

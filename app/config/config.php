@@ -6,6 +6,8 @@
 	define('DB_NAME', 'capstone2');
 	// App Root
 	define('APPROOT', dirname(dirname(__FILE__)));
+	// Public Root
+	define('PUBLICROOT', dirname(dirname(dirname(__FILE__))) . '\public');
 	// URL Root
 	define('URLROOT', 'http://localhost/project-prototype-4');
 	// Site Name
