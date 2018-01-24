@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2018 at 08:08 AM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 7.1.2
+-- Generation Time: Jan 24, 2018 at 05:24 PM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -31,6 +33,15 @@ CREATE TABLE `customers` (
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `user_id`) VALUES
+(1, 2),
+(2, 3),
+(3, 4);
+
 -- --------------------------------------------------------
 
 --
@@ -41,6 +52,25 @@ CREATE TABLE `genres` (
   `id` int(11) NOT NULL,
   `genre` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `genres`
+--
+
+INSERT INTO `genres` (`id`, `genre`) VALUES
+(1, 'Action'),
+(2, 'Adventure'),
+(3, 'Comedy'),
+(4, 'Drama'),
+(5, 'Ecchi'),
+(6, 'Harem'),
+(7, 'Horror'),
+(8, 'Mystery'),
+(9, 'Psychological'),
+(10, 'Romance'),
+(11, 'Sci-Fi'),
+(12, 'Slice of Life'),
+(13, 'Supernatural');
 
 -- --------------------------------------------------------
 
@@ -53,8 +83,17 @@ CREATE TABLE `items` (
   `name` varchar(255) DEFAULT NULL,
   `description` text,
   `price` int(11) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `items`
+--
+
+INSERT INTO `items` (`id`, `name`, `description`, `price`, `image`, `created_at`) VALUES
+(1, 'Volume 01 - Rokujouma no Shinryakusha!?', 'Rokujouma no Shinryakusha!? is a light novel series written by Takehaya and illustrated by Poco.', 75, 'Rokujouma_no_Shinryakusha_Volume_8.5.jpeg.jpeg', '2018-01-24 19:42:02'),
+(2, 'Volume 01 - Overlord', 'Rule the other world', 60, 'Overlord_Volume_01.png', '2018-01-24 19:42:02');
 
 -- --------------------------------------------------------
 
@@ -68,6 +107,17 @@ CREATE TABLE `items_genres` (
   `genre_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `items_genres`
+--
+
+INSERT INTO `items_genres` (`id`, `item_id`, `genre_id`) VALUES
+(1, 1, 3),
+(2, 1, 10),
+(3, 2, 1),
+(4, 2, 2),
+(5, 2, 13);
+
 -- --------------------------------------------------------
 
 --
@@ -77,7 +127,7 @@ CREATE TABLE `items_genres` (
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `customer_id` int(11) DEFAULT NULL,
-  `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `order_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -101,10 +151,22 @@ CREATE TABLE `order_details` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `username` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `admin` tinyint(1) DEFAULT NULL
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_admin` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `is_admin`) VALUES
+(1, 'admin', 'admin@gmail.com', '$2y$10$BFZY8BBF16ayqFfBub8FMOIaMyvx/qUK3RFy7Iz88rYNRF5ibqWZe', '2018-01-24 19:27:49', 1),
+(2, 'John Doe', 'jdoe@gmail.com', '$2y$10$uVzi4CPhVOF8ynGiVTa3uO7FNrYixZsEmLKxrnFDFnRo7C12dC53G', '2018-01-24 21:56:14', 0),
+(3, 'Foo Bar', 'fbar@gmail.com', '$2y$10$9D673W94/KYU5Hk3UovvO.og/A2/C9mc5AKTC5356n37ZTGXJ9TmW', '2018-01-24 23:43:49', 0),
+(4, 'Mary Jane', 'mjane@gmail.com', '$2y$10$qUsyLzk8l10Wz0DAG/zATOhCpzhJJeWE/Wk8AxSWcN33PJ0YHTxke', '2018-01-24 23:45:35', 0);
 
 --
 -- Indexes for dumped tables
@@ -166,37 +228,44 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `genres`
 --
 ALTER TABLE `genres`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `items_genres`
 --
 ALTER TABLE `items_genres`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- Constraints for dumped tables
 --
@@ -226,6 +295,7 @@ ALTER TABLE `orders`
 ALTER TABLE `order_details`
   ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
