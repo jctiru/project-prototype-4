@@ -63,13 +63,21 @@
 		}
 
 		// Execute the prepared statment
-		public function execute(){
-			return $this->stmt->execute();
+		public function execute($arg = []){
+			if(empty($arg)){
+				return $this->stmt->execute();
+			} else {
+				return $this->stmt->execute($arg);
+			}
 		}
 
 		// Get result set as array of objects
-		public function resultSet(){
-			$this->execute();
+		public function resultSet($arg = []){
+			if(empty($arg)){
+				$this->execute();
+			} else {
+				$this->execute($arg);
+			}
 			return $this->stmt->fetchAll();
 		}
 

@@ -18,10 +18,22 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <?php if(isset($_SESSION['user_id'])): ?>
+          <?php if (isset($_SESSION['user_id'])): ?>
             <li class="nav-item">
               <a class="nav-link" href="#">Welcome <?php echo $_SESSION['user_name'] ?></a>
             </li>
+            <?php if (!isset($_SESSION['admin_mode'])): ?>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo URLROOT; ?>/users/cart"><i class="fa fa-shopping-cart fa-lg"></i>
+              <strong id="cartItems">
+                <?php if (isset($_SESSION['cart'])): ?>
+                    <?php echo array_sum($_SESSION['cart']) ?>
+                <?php else: ?>
+                    <?php echo 0 ?>
+                <?php endif;?>
+              </strong> Cart</a>
+            </li>
+            <?php endif;?>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo URLROOT; ?>/users/logout">Logout</a>
             </li>
@@ -32,7 +44,7 @@
             <li class="nav-item">
               <a class="nav-link" href="<?php echo URLROOT; ?>/users/login">Login</a>
             </li>
-          <?php endif; ?>
+          <?php endif;?>
         </ul>
       </div>
     </div>

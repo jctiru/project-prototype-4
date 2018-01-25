@@ -27,7 +27,13 @@
                     <div class="card-body">
                         <h3 class="card-title">Price: <?php echo $data['book']->price ?></h3>
                         <?php if(isset($_SESSION['admin_mode'])): ?>
-                        <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-shopping-cart fa-lg"></i> Add to Cart</a>
+                        <?php elseif(isset($_SESSION['user_id'])) :?>
+                            <button data-index="<?php echo $data['book']->id ?>" class="btn btn-sm btn-primary cart-button"><i class="fa fa-shopping-cart fa-lg"></i> Add to Cart</button>
+                        <?php else: ?>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#cartModal">
+                                <i class="fa fa-shopping-cart fa-lg"></i> Add to Cart
+                            </button>    
                         <?php endif ?>
                     </div>
                     <div class="card-footer text-muted">
@@ -42,7 +48,7 @@
                         <a href="<?php echo URLROOT ?>/books/edit/<?php echo $data['book']->id; ?>" class="btn btn-info btn-block">Edit</a>
                         <hr>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#exampleModal">
+                        <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#deleteModal">
                             Delete
                         </button>
                     </div>
@@ -53,13 +59,35 @@
             </div>
         </div>
     </div>
-    <?php if(isset($_SESSION['admin_mode'])): ?>
+    <?php if(!isset($_SESSION['user_id'])): ?>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Book</h5>
+                    <h5 class="modal-title">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Eyeing a book? Come and log-in to start shopping!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a class="btn btn-primary pull-right" href="<?php echo URLROOT ?>/users/login">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <?php endif; ?>
+    <?php if(isset($_SESSION['admin_mode'])): ?>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Book</h5>
                     <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                     </button>

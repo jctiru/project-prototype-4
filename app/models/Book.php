@@ -12,6 +12,13 @@
 			return $results;
 		}
 
+		public function getMultipleBooksById($idArray){
+			$in = str_repeat('?,', count($idArray) - 1) . '?';
+			$this->db->query("SELECT * FROM items WHERE id IN ($in)");
+			$results = $this->db->resultSet($idArray);
+			return $results;
+		}
+
 		public function getBookGenresById($id){
 			$this->db->query("SELECT items.name, genre_id, genre FROM items JOIN items_genres ON items.id = items_genres.item_id JOIN genres ON items_genres.genre_id = genres.id WHERE items.id = :id");
 			$this->db->bind(':id', $id);
