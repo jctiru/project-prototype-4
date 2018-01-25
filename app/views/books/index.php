@@ -26,9 +26,6 @@
                                 		<?php echo $category . " " ?>
 	                                <?php endforeach; ?>
                             	</h6>
-                                <p class="card-text">
-                                    <?php echo $book->description ?>
-                                </p>
                             </div>
                             <div class="card-footer">
 								Price: <?php echo $book->price ?>

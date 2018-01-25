@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2018 at 05:24 PM
--- Server version: 10.1.29-MariaDB
--- PHP Version: 7.2.0
+-- Generation Time: Jan 25, 2018 at 08:46 AM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 7.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -50,8 +48,8 @@ INSERT INTO `customers` (`id`, `user_id`) VALUES
 
 CREATE TABLE `genres` (
   `id` int(11) NOT NULL,
-  `genre` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `genre` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `genres`
@@ -80,20 +78,24 @@ INSERT INTO `genres` (`id`, `genre`) VALUES
 
 CREATE TABLE `items` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `description` text,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` mediumtext COLLATE utf8mb4_unicode_ci,
   `price` int(11) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `items`
 --
 
 INSERT INTO `items` (`id`, `name`, `description`, `price`, `image`, `created_at`) VALUES
-(1, 'Volume 01 - Rokujouma no Shinryakusha!?', 'Rokujouma no Shinryakusha!? is a light novel series written by Takehaya and illustrated by Poco.', 75, 'Rokujouma_no_Shinryakusha_Volume_8.5.jpeg.jpeg', '2018-01-24 19:42:02'),
-(2, 'Volume 01 - Overlord', 'Rule the other world', 60, 'Overlord_Volume_01.png', '2018-01-24 19:42:02');
+(1, 'Volume 01 - Rokujouma no Shinryakusha!?', 'Invaders of the Rokujyōma!? (六畳間の侵略者!? Rokujōma no Shinryakusha!?, lit. Invaders of the Six-Tatami Mat Room!?) is a Japanese light novel series written by Takehaya and illustrated by Poco. HJ Bunko has published seventeen volumes since 2009 under their HJ Bunko imprint, as well as two side story volumes. A manga adaptation with art by Tomosane Ariike is serialized in Hobby Japan\'s online seinen manga magazine Comic Dangan. A 12-episode anime television series adaptation by Silver Link aired between July 11 and September 26, 2014.', 75, 'Rokujouma_no_Shinryakusha_Volume_8.5.jpeg.jpeg', '2018-01-24 19:42:02'),
+(2, 'Volume 01 - Overlord', 'Rule the other world', 100, 'Overlord_Volume_01.png', '2018-01-24 19:42:02'),
+(4, 'Volume 01 - Zero no Tsukaima', 'balbla', 100, 'Zeronots1_01.jpg', '2018-01-25 10:43:29'),
+(5, 'Volume 01 - Baka to Test to Shoukanjuu', 'Baka to Test to Shoukanjuu (Idiots, Tests, and Summoned Beasts), also known as Baka and Test: Summon the Beasts, is a Japanese light novel series created by Kenji Inoue and illustrated by Yui Haga.', 55, 'BakaTestV1cover.jpg', '2018-01-25 10:46:07'),
+(7, 'Maria&#39;s Box', 'Discover the true horror', 78, 'UtsuroNoHako_vol1.jpg', '2018-01-25 10:50:25'),
+(8, 'Volume 01 - Toaru Majutsu no Index', 'Toaru Majutsu no Index (lit. A Certain Magical Index) is a Japanese light novel series written by Kazuma Kamachi and illustrated by Kiyotaka Haimura.', 89, 'To_Aru_Majutsu_no_Index_new_cover.jpg', '2018-01-25 10:55:01');
 
 -- --------------------------------------------------------
 
@@ -112,11 +114,26 @@ CREATE TABLE `items_genres` (
 --
 
 INSERT INTO `items_genres` (`id`, `item_id`, `genre_id`) VALUES
-(1, 1, 3),
-(2, 1, 10),
-(3, 2, 1),
-(4, 2, 2),
-(5, 2, 13);
+(6, 4, 1),
+(7, 4, 2),
+(8, 4, 3),
+(9, 4, 4),
+(10, 5, 3),
+(11, 5, 5),
+(12, 5, 10),
+(14, 7, 7),
+(15, 7, 8),
+(16, 7, 9),
+(17, 7, 13),
+(18, 8, 1),
+(19, 8, 11),
+(20, 8, 13),
+(22, 1, 3),
+(23, 1, 10),
+(59, 2, 1),
+(60, 2, 2),
+(61, 2, 7),
+(62, 2, 13);
 
 -- --------------------------------------------------------
 
@@ -151,12 +168,12 @@ CREATE TABLE `order_details` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_admin` tinyint(1) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
@@ -229,43 +246,36 @@ ALTER TABLE `users`
 --
 ALTER TABLE `customers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `genres`
 --
 ALTER TABLE `genres`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `items_genres`
 --
 ALTER TABLE `items_genres`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- Constraints for dumped tables
 --
@@ -295,7 +305,6 @@ ALTER TABLE `orders`
 ALTER TABLE `order_details`
   ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

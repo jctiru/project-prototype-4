@@ -11,6 +11,7 @@
 		private $user = DB_USER;
 		private $pass = DB_PASS;
 		private $dbname = DB_NAME;
+		private $charset = DB_CHAR;
 
 		private $dbh;
 		private $stmt;
@@ -18,7 +19,7 @@
 
 		public function __construct(){
 			// Set DSN
-			$dsn = 'mysql: host='. $this->host .';dbname=' . $this->dbname;
+			$dsn = 'mysql: host='. $this->host .';dbname=' . $this->dbname . ';charset=' .$this->charset;
 			$options = array(
 				PDO::ATTR_PERSISTENT => true,
 				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

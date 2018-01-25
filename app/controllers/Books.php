@@ -269,25 +269,27 @@
 			$this->view('books/show', $data);
 		}
 
-		// public function delete($id){
-		// 	if($_SERVER["REQUEST_METHOD"] == 'POST'){
-		// 		// Get existing post from model
-		// 		$post = $this->postModel->getPostById($id);
+		public function delete($id){
+			// Check if admin
+			if($_SESSION['user_is_admin'] == 1){
+				if($_SERVER["REQUEST_METHOD"] == 'POST'){
+					// Get existing book from model
+					$book = $this->bookModel->getBookById($id);
+					if($this->bookModel->deleteBook($id)){
+						// Delete local image
+						unlink(PUBLICROOT . "/img/" . $book->image);
+						flash('book_message', 'Book Removed');
+						redirect('books');
+					} else {
+						die('Something went wrong');
+					}
+				} else {
+					redirect('books');
+				}
+			} else {
+				redirect('');
+			}
+		}
 
-		// 		// Check for owner
-		// 		if($post->user_id != $_SESSION['user_id']){
-		// 			redirect('posts');
-		// 		}
-				
-		// 		if($this->postModel->deletePost($id)){
-		// 			flash('post_message', 'Post Removed');
-		// 			redirect('posts');
-		// 		} else {
-		// 			die('Something went wrong');
-		// 		}
-		// 	} else {
-		// 		redirect('posts');
-		// 	}
-		// }
 	}
  ?>
