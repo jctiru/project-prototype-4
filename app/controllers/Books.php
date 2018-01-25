@@ -23,7 +23,7 @@
 
 		public function add(){
 			// Check if admin
-			if($_SESSION['user_is_admin'] == 1){
+			if(isset($_SESSION['admin_mode'])){
 				$genresList = $this->bookModel->getGenresList();
 				if($_SERVER['REQUEST_METHOD'] == 'POST'){
 					// Sanitize POST array
@@ -119,7 +119,7 @@
 
 		public function edit($id){
 			// Check if admin
-			if($_SESSION['user_is_admin'] == 1){
+			if(isset($_SESSION['admin_mode'])){
 				// Get existing book from model
 				$book = $this->bookModel->getBookById($id);
 				$bookGenres = $this->bookModel->getBookGenresById($book->id);
@@ -271,7 +271,7 @@
 
 		public function delete($id){
 			// Check if admin
-			if($_SESSION['user_is_admin'] == 1){
+			if(isset($_SESSION['admin_mode'])){
 				if($_SERVER["REQUEST_METHOD"] == 'POST'){
 					// Get existing book from model
 					$book = $this->bookModel->getBookById($id);

@@ -2,7 +2,7 @@
 <div class="container">
     <a href="<?php echo URLROOT ?>/books" class="btn btn-ligth m-1"><i class="fa fa-backward"></i> Back</a>
     <br>
-    <div class="card">
+    <div class="card mb-5">
         <div class="row ">
             <div class="col-md-4">
                 <img src="<?php echo IMGSRC . $data['book']->image; ?>" class="w-100">
@@ -26,14 +26,14 @@
                     </div>
                     <div class="card-body">
                         <h3 class="card-title">Price: <?php echo $data['book']->price ?></h3>
-                        <?php if($_SESSION['user_is_admin'] != 1): ?>
+                        <?php if(isset($_SESSION['admin_mode'])): ?>
                         <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-shopping-cart fa-lg"></i> Add to Cart</a>
                         <?php endif ?>
                     </div>
                     <div class="card-footer text-muted">
                     </div>
                 </div>
-                <?php if($_SESSION['user_is_admin'] == 1): ?>
+                <?php if(isset($_SESSION['admin_mode'])): ?>
                 <div class="card text-center m-4">
                     <div class="card-header">
                         <h5>ADMIN PANEL</h5>
@@ -53,7 +53,7 @@
             </div>
         </div>
     </div>
-    <?php if($_SESSION['user_is_admin'] == 1): ?>
+    <?php if(isset($_SESSION['admin_mode'])): ?>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">

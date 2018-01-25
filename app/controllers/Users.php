@@ -160,7 +160,9 @@
 			$_SESSION['user_id'] = $user->id;
 			$_SESSION['user_email'] = $user->email;
 			$_SESSION['user_name'] = $user->name;
-			$_SESSION['user_is_admin'] = $user->is_admin;
+			if($user->is_admin){
+				$_SESSION['admin_mode'] = true;
+			}
 			redirect('');
 		}
 
@@ -169,7 +171,7 @@
 			unset($_SESSION['user_id']);
 			unset($_SESSION['user_email']);
 			unset($_SESSION['user_name']);
-			unset($_SESSION['user_is_admin']);
+			unset($_SESSION['admin_mode']);
 			session_destroy();
 			redirect("");
 		}

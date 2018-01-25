@@ -5,7 +5,7 @@
 		<div class="col-md-6">
 			<h1>Shop</h1>
 		</div>
-		<?php if($_SESSION['user_is_admin']==1): ?>
+		<?php if(isset($_SESSION['admin_mode'])): ?>
 			<div class="col-md-6">
 				<a href="<?php echo URLROOT; ?>/books/add" class="btn btn-primary pull-right"><i class="fa fa-pencil"></i> Add Book</a>
 			</div>
