@@ -51,19 +51,45 @@
 			}
 		}
 
-		// public function updatePost($data){
-		// 	$this->db->query("UPDATE posts SET title = :title, body = :body WHERE id = :id");
-		// 	// Bind values
-		// 	$this->db->bind(":id", $data['id']);
-		// 	$this->db->bind(":title", $data['title']);
-		// 	$this->db->bind(":body", $data['body']);
-		// 	// Execute
-		// 	if($this->db->execute()){
-		// 		return true;
-		// 	} else {
-		// 		return false;
-		// 	}
-		// }
+		public function updateBook($data){
+			$this->db->query("UPDATE items SET name = :name, description = :description, price = :price, image = :image WHERE id = :id");
+			// Bind values
+			$this->db->bind(":name", $data['name']);
+			$this->db->bind(":description", $data['description']);
+			$this->db->bind(":price", $data['price']);
+			$this->db->bind(":image", $data['image']);
+			$this->db->bind(":id", $data['id']);
+			// Execute
+			if($this->db->execute()){
+				// Delete existing genres
+				if($this->deleteBookGenresById($data['id'])){
+					// Insert genres of items into items_genres table
+					foreach ($data['genresChecked'] as $genreKey => $genre) {
+						if(!empty($genre)){
+							$this->db->query("INSERT INTO items_genres (item_id, genre_id) VALUES (:item_id, :genre_id)");
+							$this->db->bind(":item_id", $data['id']);
+							$this->db->bind(":genre_id" , $genreKey);
+							$this->db->execute();
+						}
+					}
+				} else {
+					return false;
+				}				
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		public function deleteBookGenresById($id){
+			$this->db->query("DELETE FROM items_genres WHERE item_id = :id");
+			$this->db->bind(":id", $id);
+			if($this->db->execute()){
+				return true;
+			} else {
+				return false;
+			}
+		}
 
 		public function getBookById($id){
 			$this->db->query("SELECT * FROM items WHERE id = :id");

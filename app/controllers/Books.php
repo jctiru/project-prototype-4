@@ -2,7 +2,6 @@
 	class Books extends Controller {
 		public function __construct(){
 			$this->bookModel = $this->model('Book');
-			$this->userModel = $this->model('User');
 		}
 
 		public function index(){
@@ -118,63 +117,150 @@
 			}
 		}
 
-		// public function edit($id){
-		// 	if($_SERVER['REQUEST_METHOD'] == 'POST'){
-		// 		// Sanitize POST array
-		// 		$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-		// 		$data = [
-		// 			'id' => $id,
-		// 			'title' => trim($_POST['title']),
-		// 			'body' => trim($_POST['body']),
-		// 			'user_id' => $_SESSION['user_id'],
-		// 			'title_err' => '',
-		// 			'body_err' => ''
-		// 		];
+		public function edit($id){
+			// Check if admin
+			if($_SESSION['user_is_admin'] == 1){
+				// Get existing book from model
+				$book = $this->bookModel->getBookById($id);
+				$bookGenres = $this->bookModel->getBookGenresById($book->id);
+				$genresList = $this->bookModel->getGenresList();
+				if($_SERVER['REQUEST_METHOD'] == 'POST'){
+					// Sanitize POST array
+					$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-		// 		// Validate data
-		// 		if(empty($data['title'])){
-		// 			$data['title_err'] = "Please enter title";
-		// 		}
-		// 		if(empty($data['body'])){
-		// 			$data['body_err'] = "Please enter body text";
-		// 		}
+					// Set checkboxes state
+					$genresChecked = [];
+					foreach ($genresList as $genre) {
+						if(isset($_POST[$genre->id])){
+							$genresChecked[$genre->id] = "checked";
+						} else {
+							$genresChecked[$genre->id] = "";
+						}
+					}
 
-		// 		// Make sure no errors
-		// 		if(empty($data['title_err']) && empty($data['body_err'])){
-		// 			// Validated
-		// 			if($this->postModel->updatePost($data)){
-		// 				flash('post_message', 'Post Updated');
-		// 				redirect('posts');
-		// 			} else {
-		// 				die("Something went wrong");
-		// 			}
-		// 		} else {
-		// 			// Load view with error
-		// 			$this->view('posts/edit', $data);
-		// 		}
-		// 	} else {
-		// 		// Get existing post from model
-		// 		$post = $this->postModel->getPostById($id);
-		// 		// Check for owner
-		// 		if($post->user_id != $_SESSION['user_id']){
-		// 			redirect('posts');
-		// 		}
-		// 		$data = [
-		// 			'id' => $id,
-		// 			'title' => $post->title,
-		// 			'body' => $post->body, 
-		// 		];
+					$data = [];
+					// Upload directory
+					$upload_dir = PUBLICROOT . "/img/";
 
-		// 		$this->view('posts/edit', $data);	
-		// 	}
-		// }
+					// Check if there is uploaded file
+					$isThereUploadedFile;
+					if(is_uploaded_file($_FILES['image']['tmp_name'])){
+						$isThereUploadedFile = true;
+					} else {
+						$isThereUploadedFile = false;
+					}
+					if($isThereUploadedFile){
+						$data = [
+							'id' => $id,
+							'image' => $_FILES['image']['name'],
+							'image_dir' => $_FILES['image']['tmp_name'],						
+							'name' => trim($_POST['name']),
+							'description' => trim($_POST['description']),
+							'price' => $_POST['price'],
+							'image_err' => '',
+							'name_err' => '',
+							'description_err' => '',
+							'price_err' => '',
+							'genres' => $genresList,
+							'genresChecked' => $genresChecked
+						];
+
+						// For checking if image already exists 
+						$target_file = $upload_dir . basename($data['image']);
+						// Get file extension
+						$imgExt = strtolower(pathinfo($data['image'],PATHINFO_EXTENSION));
+						// Valid extensions
+						$valid_extensions = array('jpeg', 'jpg', 'png', 'gif');
+						// Check image uploaded
+						if (!in_array($imgExt, $valid_extensions)) {
+							$data['image_err'] = "Please upload valid image (jpeg, jpg, png, gif)";
+						} elseif (file_exists($target_file)){
+							$data['image_err'] = "Image already exists";
+						}
+					} else {
+						$data = [
+							'id' => $id,
+							'image' => $book->image,					
+							'name' => trim($_POST['name']),
+							'description' => trim($_POST['description']),
+							'price' => $_POST['price'],
+							'image_err' => '',
+							'name_err' => '',
+							'description_err' => '',
+							'price_err' => '',
+							'genres' => $genresList,
+							'genresChecked' => $genresChecked
+						];
+					}	
+
+					// Validate data
+					if(empty($data['name'])){
+						$data['name_err'] = "Please enter name";
+					}
+					if(empty($data['description'])){
+						$data['description_err'] = "Please enter description";
+					}
+					if(empty($data['price'])){
+						$data['price_err'] = "Please enter price";
+					}
+
+					// Make sure no errors
+					if(empty($data['image_err']) && empty($data['name_err']) && empty($data['name_err']) && empty($data['description_err']) && empty($data['price_err'])){
+						// Validated
+						// Update book in database
+						if($this->bookModel->updateBook($data)){
+							// Copy upload file to system
+
+							// Check if there is uploaded file
+							if($isThereUploadedFile){
+								// Delete old image
+								unlink($upload_dir . $book->image);
+								// Copy new image
+								move_uploaded_file($data['image_dir'], $upload_dir . $data['image']);
+							}
+
+							flash('book_message', 'Book Updated');
+							redirect('books');
+						} else {
+							die("Something went wrong");
+						}
+					} else {
+						// Load view with error
+						$this->view('books/edit', $data);
+					}
+				} else {
+					// Set checkboxes state
+					$genresChecked = [];
+					foreach($bookGenres as $genre){
+						$genresChecked[$genre->genre_id] = "checked";
+					}
+					foreach ($genresList as $genre) {
+						if(!isset($genresChecked[$genre->id])){
+							$genresChecked[$genre->id] = "";
+						}
+					}
+
+					$data = [
+						'id' => $id,
+						'image' => $book->image,
+						'name' => $book->name,
+						'description' => $book->description,
+						'price' => $book->price ,
+						'genres' => $genresList,
+						'genresChecked' => $genresChecked
+					];
+					$this->view('books/edit', $data);	
+				}
+			} else {
+				redirect('');
+			}
+		}
 
 		public function show($id){
 			$book = $this->bookModel->getBookById($id);
 			$bookGenres = $this->bookModel->getBookGenresById($book->id);
 			$book->category = [];
 			foreach ($bookGenres as $bookGenre) {
-				// array_push($book->category, $bookGenre->genre);
 				$book->category[$bookGenre->genre_id] = $bookGenre->genre;
 			}
 			$data = [
