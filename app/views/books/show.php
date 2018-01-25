@@ -10,9 +10,13 @@
           	<div class="col-md-8 p-3">
             	<div class="card-block p-3">
               		<h4 class="card-title"><?php echo $data['book']->name ?></h4>
-              		<p class="card-text">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-              		<p class="card-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-              		<a href="#" class="btn btn-primary">Read More</a>
+              		<h6 class="card-subtitle mb-3 text-muted">
+                      <?php foreach($data['book']->category as $category): ?>
+                        <?php echo $category . " " ?>
+                      <?php endforeach; ?>
+                  </h6>
+              		<p class="card-text"><?php echo $data['book']->description ?></p>
+              		<a href="#" class="btn btn-primary">Placeholder</a>
             	</div>
           	</div>
         </div>

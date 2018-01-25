@@ -12,7 +12,8 @@
 				$bookGenres = $this->bookModel->getBookGenresById($book->id);
 				$book->category = [];
 				foreach ($bookGenres as $bookGenre) {
-					array_push($book->category, $bookGenre->genre);
+					// array_push($book->category, $bookGenre->genre);
+					$book->category[$bookGenre->genre_id] = $bookGenre->genre;
 				}
 			}
 			$data = [
@@ -24,9 +25,21 @@
 		public function add(){
 			// Check if admin
 			if($_SESSION['user_is_admin'] == 1){
+				$genresList = $this->bookModel->getGenresList();
 				if($_SERVER['REQUEST_METHOD'] == 'POST'){
 					// Sanitize POST array
 					$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+					// Set checkboxes state
+					$genresChecked = [];
+					foreach ($genresList as $genre) {
+						if(isset($_POST[$genre->id])){
+							$genresChecked[$genre->id] = "checked";
+						} else {
+							$genresChecked[$genre->id] = "";
+						}
+					}				
+
 					$data = [
 						'image' => $_FILES['image']['name'],
 						'image_dir' => $_FILES['image']['tmp_name'],
@@ -37,6 +50,8 @@
 						'name_err' => '',
 						'description_err' => '',
 						'price_err' => '',
+						'genres' => $genresList,
+						'genresChecked' => $genresChecked
 					];
 
 					// Upload directory
@@ -67,8 +82,10 @@
 					}
 
 					// Make sure no errors
-					if(empty($data['name_err']) && empty($data['name_err']) && empty($data['description_err']) && empty($data['price_err'])){
+					if(empty($data['image_err']) && empty($data['name_err']) && empty($data['name_err']) && empty($data['description_err']) && empty($data['price_err'])){
 						// Validated
+
+						// Add book to database
 						if($this->bookModel->addBook($data)){
 							// Copy upload file to system
 							move_uploaded_file($data['image_dir'], $upload_dir . $data['image']);
@@ -83,10 +100,16 @@
 						$this->view('books/add', $data);
 					}
 				} else {
+					$genresChecked = [];
+					foreach ($genresList as $genre) {
+						$genresChecked[$genre->id] = "";
+					}
 					$data = [
 						'name' => '',
 						'description' => '',
-						'price' => '' 
+						'price' => '' ,
+						'genres' => $genresList,
+						'genresChecked' => $genresChecked
 					];
 					$this->view('books/add', $data);	
 				}
@@ -148,10 +171,14 @@
 
 		public function show($id){
 			$book = $this->bookModel->getBookById($id);
-			// $user = $this->userModel->getUserById($post->user_id);
+			$bookGenres = $this->bookModel->getBookGenresById($book->id);
+			$book->category = [];
+			foreach ($bookGenres as $bookGenre) {
+				// array_push($book->category, $bookGenre->genre);
+				$book->category[$bookGenre->genre_id] = $bookGenre->genre;
+			}
 			$data = [
 				'book' => $book,
-				// 'user' => $user
 			];
 			$this->view('books/show', $data);
 		}

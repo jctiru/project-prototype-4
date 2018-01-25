@@ -38,7 +38,15 @@
 								<label for="name">Price: <sup>*</sup></label>
 								<input type="number" name="price" class="form-control form-control-sm <?php echo (!empty($data['price_err'])) ? 'is-invalid' : '' ?>" value="<?php echo $data['price'] ?>">
 								<span class="invalid-feedback"><?php echo $data['price_err'] ?></span>
-							</div>							
+							</div>
+							<?php foreach($data['genres'] as $genre): ?>
+								<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="<?php echo $genre->id; ?>" name="<?php echo $genre->id; ?>" id="<?php echo $genre->id; ?>" <?php echo $data['genresChecked'][$genre->id] ?>>
+								<label class="form-check-label" for="<?php echo $genre->id; ?>">
+									<?php echo $genre->genre ?>
+								</label>
+								</div>							
+							<?php endforeach; ?>
 						</div>
 					</div>
 					<input type="submit" class="btn btn-success" name="submit" value="Submit">
