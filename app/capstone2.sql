@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2018 at 08:46 AM
+-- Generation Time: Jan 26, 2018 at 08:25 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.2
 
@@ -90,12 +90,12 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`id`, `name`, `description`, `price`, `image`, `created_at`) VALUES
-(1, 'Volume 01 - Rokujouma no Shinryakusha!?', 'Invaders of the Rokujyōma!? (六畳間の侵略者!? Rokujōma no Shinryakusha!?, lit. Invaders of the Six-Tatami Mat Room!?) is a Japanese light novel series written by Takehaya and illustrated by Poco. HJ Bunko has published seventeen volumes since 2009 under their HJ Bunko imprint, as well as two side story volumes. A manga adaptation with art by Tomosane Ariike is serialized in Hobby Japan\'s online seinen manga magazine Comic Dangan. A 12-episode anime television series adaptation by Silver Link aired between July 11 and September 26, 2014.', 75, 'Rokujouma_no_Shinryakusha_Volume_8.5.jpeg.jpeg', '2018-01-24 19:42:02'),
-(2, 'Volume 01 - Overlord', 'Rule the other world', 100, 'Overlord_Volume_01.png', '2018-01-24 19:42:02'),
-(4, 'Volume 01 - Zero no Tsukaima', 'balbla', 100, 'Zeronots1_01.jpg', '2018-01-25 10:43:29'),
-(5, 'Volume 01 - Baka to Test to Shoukanjuu', 'Baka to Test to Shoukanjuu (Idiots, Tests, and Summoned Beasts), also known as Baka and Test: Summon the Beasts, is a Japanese light novel series created by Kenji Inoue and illustrated by Yui Haga.', 55, 'BakaTestV1cover.jpg', '2018-01-25 10:46:07'),
-(7, 'Maria&#39;s Box', 'Discover the true horror', 78, 'UtsuroNoHako_vol1.jpg', '2018-01-25 10:50:25'),
-(8, 'Volume 01 - Toaru Majutsu no Index', 'Toaru Majutsu no Index (lit. A Certain Magical Index) is a Japanese light novel series written by Kazuma Kamachi and illustrated by Kiyotaka Haimura.', 89, 'To_Aru_Majutsu_no_Index_new_cover.jpg', '2018-01-25 10:55:01');
+(2, 'Overlord', 'Overlord (オーバーロード Ōbārōdo) is a Japanese light novel series written by Kugane Maruyama and illustrated by so-bin. It began serialization online in 2010, before being acquired by Enterbrain. Twelve volumes have been published since July 30, 2012. A manga adaptation by Satoshi Ōshio, with art by Hugin Miyama, began serialization in Kadokawa Shoten&#39;s manga magazine Comp Ace from November 26, 2014. Both the light novels and the manga are licensed in North America by Yen Press, with a release date of November 8, 2016.', 100, 'Overlord_Volume_01.png', '2018-01-24 19:42:02'),
+(4, 'Zero no Tsukaima', 'The Familiar of Zero (Japanese: ゼロの使い魔 Hepburn: Zero no Tsukaima) is a fantasy and comedy-oriented series of Japanese light novels written by Noboru Yamaguchi, with illustrations by Eiji Usatsuka. Media Factory published 20 volumes between June 2004 and February 2011. The series was left unfinished due to the author&#39;s death on April 4, 2013,[2] but the series was concluded in two volumes released in February 2016 and February 2017 with a different author, making use of notes left behind by the late Noboru Yamaguchi. The story features several characters from the second year class of a magic academy in a fictional magical world with the main characters being the inept mage Louise and her familiar from Earth, Saito Hiraga.', 100, 'Zeronots1_01.jpg', '2018-01-25 10:43:29'),
+(5, 'Baka to Test to Shoukanjuu', 'Baka and Test (Japanese: バカとテストと召喚獣 Hepburn: Baka to Tesuto to Shōkanjū, lit. Idiots, Tests, and Summoned Beasts), also known as Baka and Test: Summon the Beasts, is a Japanese light novel series written by Kenji Inoue with illustrations by Yui Haga. Enterbrain published 18 novels from January 2007 to March 2015 under their Famitsu Bunko imprint.', 55, 'BakaTestV1cover.jpg', '2018-01-25 10:46:07'),
+(7, 'Utsuro no Hako to Zero no Maria', 'The Empty Box and Zeroth Maria, known in Japan as Utsuro no Hako to Zero no Maria (空ろの箱と零のマリア, lit. The Hollow Box and the Maria of Zero) and colloquially referred to as Hakomari (箱マリ), is a Japanese light novel series written by Eiji Mikage (ja), with illustrations by Tetsuo.[2][a] ASCII Media Works published seven novels from January 2009 to June 2015 under their Dengeki Bunko imprint. The novels have been licensed for release in North America by Yen Press.', 78, 'UtsuroNoHako_vol1.jpg', '2018-01-25 10:50:25'),
+(8, 'Toaru Majutsu no Index', 'A Certain Magical Index (とある魔術の禁書目録 インデックス Toaru Majutsu no Indekkusu) is a Japanese light novel series written by Kazuma Kamachi and illustrated by Kiyotaka Haimura, which has been published by ASCII Media Works under their Dengeki Bunko imprint since April 2004. The plot is set in a world where supernatural abilities exist. The light novels focus on Tōma Kamijō, a young high school student in Academy City who has an unusual ability, as he encounters an English nun named Index. His ability and relationship with Index proves dangerous to other magicians and espers who want to discover the secrets behind him, Index as well as the city.', 89, 'To_Aru_Majutsu_no_Index_new_cover.jpg', '2018-01-25 10:55:01'),
+(10, 'Rokujouma no Shinryakusha!?', 'Invaders of the Rokujyōma!? (六畳間の侵略者!? Rokujōma no Shinryakusha!?, lit. Invaders of the Six-Tatami Mat Room!?) is a Japanese light novel series written by Takehaya and illustrated by Poco. HJ Bunko has published seventeen volumes since 2009 under their HJ Bunko imprint, as well as two side story volumes. A manga adaptation with art by Tomosane Ariike is serialized in Hobby Japan&#39;s online seinen manga magazine Comic Dangan. A 12-episode anime television series adaptation by Silver Link aired between July 11 and September 26, 2014.', 75, 'Rokujouma_no_Shinryakusha_Volume_8.5.jpeg.jpeg', '2018-01-25 16:23:54');
 
 -- --------------------------------------------------------
 
@@ -114,26 +114,26 @@ CREATE TABLE `items_genres` (
 --
 
 INSERT INTO `items_genres` (`id`, `item_id`, `genre_id`) VALUES
-(6, 4, 1),
-(7, 4, 2),
-(8, 4, 3),
-(9, 4, 4),
-(10, 5, 3),
-(11, 5, 5),
-(12, 5, 10),
 (14, 7, 7),
 (15, 7, 8),
 (16, 7, 9),
 (17, 7, 13),
-(18, 8, 1),
-(19, 8, 11),
-(20, 8, 13),
-(22, 1, 3),
-(23, 1, 10),
-(59, 2, 1),
-(60, 2, 2),
-(61, 2, 7),
-(62, 2, 13);
+(70, 4, 1),
+(71, 4, 2),
+(72, 4, 3),
+(73, 4, 4),
+(74, 8, 1),
+(75, 8, 11),
+(76, 8, 13),
+(77, 5, 3),
+(78, 5, 5),
+(79, 5, 10),
+(86, 2, 1),
+(87, 2, 2),
+(88, 2, 7),
+(89, 2, 13),
+(90, 10, 3),
+(91, 10, 10);
 
 -- --------------------------------------------------------
 
@@ -255,12 +255,12 @@ ALTER TABLE `genres`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `items_genres`
 --
 ALTER TABLE `items_genres`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 --
 -- AUTO_INCREMENT for table `orders`
 --

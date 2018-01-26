@@ -1,4 +1,4 @@
-<footer>
+<!-- <footer>
 
 		<div class="container-fluid py-3 px-5 bg-dark">
 			<div class="row">
@@ -18,12 +18,12 @@
 		    </div>
 		    <div class="row">
 		        <div class="col-md-12">
-		            © 2018 Copyright: <a href="<?php echo URLROOT ?>"> LNShop </a>
+		            © 2018 Copyright: <a href="<?php //echo URLROOT ?>"> LNShop </a>
 		        </div>
 		    </div>		
 		</div>	
 	
-</footer>
+</footer> -->
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
