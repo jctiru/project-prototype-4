@@ -28,7 +28,11 @@
                         <h3 class="card-title">Price: <?php echo $data['book']->price ?></h3>
                         <?php if(isset($_SESSION['admin_mode'])): ?>
                         <?php elseif(isset($_SESSION['user_id'])) :?>
-                            <button data-index="<?php echo $data['book']->id ?>" class="btn btn-sm btn-primary cart-button"><i class="fa fa-shopping-cart fa-lg"></i> Add to Cart</button>
+                            <button data-index="<?php echo $data['book']->id ?>" class="btn btn-sm btn-primary cart-button">
+                                <img id="cart-loader" style="display: none;" src="<?php echo IMGSRC ?>ajax-loader.gif"/>
+                                <i id="cart-icon" class="fa fa-shopping-cart fa-lg"></i> 
+                            Add to Cart
+                            </button>
                         <?php else: ?>
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#cartModal">

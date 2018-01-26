@@ -173,17 +173,40 @@ class Users extends Controller
         }
     }
 
-    public function cart(){
-    	$bookIdArray = [];
-    	foreach ($_SESSION['cart'] as $key => $value) {
-    		array_push($bookIdArray, $key);
-    	}
-    	$books = $this->bookModel->getMultipleBooksById($bookIdArray);
-    	$data = [
-    		'books' => $books
-    	];
-    	// Load view
-    	$this->view('users/cart', $data);
+    public function cart()
+    {
+        if (isset($_SESSION['cart'])) {
+            $bookIdArray = [];
+            foreach ($_SESSION['cart'] as $key => $value) {
+                array_push($bookIdArray, $key);
+            }
+            $books = $this->bookModel->getMultipleBooksById($bookIdArray);
+
+            // Set line price
+            foreach ($books as $book) {
+                $book->linePrice = intval($book->price) * intval($_SESSION['cart'][$book->id]);
+            }
+
+            // Set total price
+            $totalPrice = 0;
+            foreach ($books as $book) {
+                // Add all line price
+                $totalPrice += $book->linePrice;
+            }
+
+            $data  = [
+                'books' => $books,
+                'totalPrice' => $totalPrice
+            ];
+            // Load view
+            $this->view('users/cart', $data);
+        } else {
+            $data = [];
+            // Load empty view
+            $this->view('users/cart', $data);
+        }
+
+        
     }
 
     // Create Session
