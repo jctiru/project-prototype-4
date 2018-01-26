@@ -2,7 +2,6 @@ $(document).ready(function() {
 
     // Add to Cart
     $(".cart-button").click(function() {
-        console.log("Enabled");
         $.ajax({
             url: 'http://localhost/project-prototype-4/users/ajaxcart',
             type: 'POST',
@@ -19,7 +18,6 @@ $(document).ready(function() {
             },
             success: function(data) {
                 $('#cartItems').html(" " + data);
-                console.log(data);
             }
         });
     });
@@ -63,5 +61,26 @@ $(document).ready(function() {
             });
         });
     }
+
+    // Disable cart
+    $.blockUI.defaults.css = {}; 
+    $('#block').click(function() {
+        $('#cart-section').block({
+            message: $('#throbber'),
+            css: {
+                // border: 'none',
+                // padding: '15px',
+                // backgroundColor: '#000',
+                // '-webkit-border-radius': '10px',
+                // '-moz-border-radius': '10px',
+                // opacity: 0.5,
+                // color: '#fff'
+            }
+        });
+    });
+
+    $('#unblock').click(function() {
+        $('#cart-section').unblock();
+    });
 
 });

@@ -1,6 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php';?>
-<div class="container">
-	<div class="card mt-5 mb-5">
+<div class="container mt-5 mb-5">
+	<div id="cart-section" class="card">
         <div class="card-header">
             <div class="row align-items-center">
                 <div class="col-md-6">
@@ -96,5 +96,9 @@
             </div>
         </div>
     </div>
+    <!-- Used for loading -->
+    <img id="throbber" style="display: none;" src="<?php echo IMGSRC ?>ajax-loader-2.svg">
+    <button id="block">block</button>
+    <button id="unblock">unblock</button>
 </div>
 <?php require APPROOT . '/views/inc/footer.php';?>
