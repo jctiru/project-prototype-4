@@ -28,7 +28,7 @@
                         <h4 class="card-title">Price: <?php echo $data['book']->price ?></h4>
                         <?php if(isset($_SESSION['admin_mode'])): ?>
                         <?php elseif(isset($_SESSION['user_id'])) :?>
-                            <button data-index="<?php echo $data['book']->id ?>" class="btn btn-sm btn-primary cart-button">
+                            <button data-index="<?php echo $data['book']->id ?>" id="cart-button" class="btn btn-sm btn-primary">
                                 <img id="cart-loader" style="display: none;" src="<?php echo IMGSRC ?>ajax-loader.gif"/>
                                 <i id="cart-icon" class="fa fa-shopping-cart fa-lg"></i> 
                             Add to Cart

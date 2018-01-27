@@ -46,16 +46,16 @@
                     <div class="col-md-5">
                         <div class="row align-items-center">
                             <div class="col-md-3">
-                                <h6 class="mb-0"><strong>P </strong><strong class="product-price"><?php echo $book->price ?></strong></h6>
+                                <h6 class="mb-0"><strong>P<?php echo $book->price ?></strong></h6>
                             </div>
                             <div class="col-md-3">
-                                <input type="number" name="<?php echo $book->id ?>" min="1" class="form-control form-control-sm product-quantity" value="<?php echo $_SESSION['cart'][$book->id] ?>">
+                                <input type="number" name="bookQuantityId_<?php echo $book->id ?>" min="1" class="form-control form-control-sm product-quantity" value="<?php echo $_SESSION['cart'][$book->id] ?>">
                             </div>
                             <div class="col-md-3">
-                                <h6 class="mb-0"><strong class="product-lineprice"><?php echo $book->linePrice; ?></strong></h6>
+                                <h6 class="mb-0"><strong id="bookLinePrice_<?php echo $book->id ?>">P<?php echo $book->linePrice; ?></strong></h6>
                             </div>
                             <div class="col-md-3 text-center">
-                                <button type="button" class="btn btn-link btn-sm product-removal">
+                                <button type="button" class="btn btn-link btn-sm">
                                     <i class="fa fa-trash-o fa-2x"></i>
                                 </button>
                             </div>
@@ -70,7 +70,7 @@
                     <h6 class="text-right mb-0">Added items?</h6>
                 </div>
                 <div class="col-md-3">
-                    <button type="submit" form="cart-form" class="btn btn-outline-primary btn-sm btn-block">
+                    <button type="submit" disabled id="update-cart-button" form="cart-form" class="btn btn-outline-primary btn-sm btn-block">
                         <i class="fa fa-refresh"></i> Update Cart
                     </button>
                 </div>
@@ -81,7 +81,7 @@
             <div class="row align-items-center">
                 <div class="col-md-9">
                     <h4 class="text-right mb-0">Total:
-                    <strong id="cartTotalCost">
+                    <strong id="cart-total-cost">
                         <?php if(!empty($_SESSION['cart'])): ?>
                             <?php echo 'P' . $data['totalPrice']; ?>
                         <?php endif; ?>
@@ -98,7 +98,5 @@
     </div>
     <!-- Used for loading -->
     <img id="throbber" style="display: none;" src="<?php echo IMGSRC ?>ajax-loader-2.svg">
-    <button id="block">block</button>
-    <button id="unblock">unblock</button>
 </div>
 <?php require APPROOT . '/views/inc/footer.php';?>
