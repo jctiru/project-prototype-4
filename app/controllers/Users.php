@@ -187,7 +187,7 @@ class Users extends Controller
                 // Get specific quantity elements from $_POST
 
                 if (strpos($key, 'bookQuantityId_') !== false) {
-                    // Strip off id from $_POST['bookId_X']
+                    // Strip off id from $_POST['bookQuantityId_X']
                     $id = str_replace('bookQuantityId_', '', $key);
                     // Set new quantities to session
                     $_SESSION['cart'][$id] = $value;
@@ -210,8 +210,70 @@ class Users extends Controller
 
             $data = [
                 'books'      => $books,
-                'totalPrice' => $totalPrice
+                'totalPrice' => $totalPrice,
+                'totalItems' => array_sum($_SESSION['cart']),
             ];
+
+            echo json_encode($data);
+        } else {
+            redirect('');
+        }
+    }
+
+    // Ajax delete from cart
+    public function ajaxdeletecart()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $bookIdArray = [];
+            // Get book ids
+            foreach ($_POST as $key => $value) {
+                // Get id elements from $_POST
+                if (strpos($key, 'bookQuantityId_') !== false) {
+                    // Strip off id from $_POST['bookQuantityId_X']
+                    $id = str_replace('bookQuantityId_', '', $key);
+                    // Collect all ids
+                    array_push($bookIdArray, intval($id));
+                }
+            }
+
+            // Remove item from Session
+            unset($_SESSION['cart'][$_POST['bookRowId']]);
+            // Remove item from book id array
+            $index = array_search($_POST['bookRowId'], $bookIdArray);
+            if ($index !== false) {
+                unset($bookIdArray[$index]);
+                // Re-index array to be used when passed on model
+                $bookIdArray = array_values($bookIdArray);
+            }
+
+            // Check if there is still items
+            if (empty($bookIdArray)) {
+                // Remove cart from SESSION
+                unset($_SESSION['cart']);
+                $data = [
+                    'cartEmpty' => true
+                ];
+
+            } else {
+                $books = $this->bookModel->getMultipleBooksById($bookIdArray);
+                // Set line price
+                foreach ($books as $book) {
+                    $book->linePrice = intval($book->price) * intval($_SESSION['cart'][$book->id]);
+                }
+
+                // Set total price
+                $totalPrice = 0;
+                foreach ($books as $book) {
+                    // Add all line price
+                    $totalPrice += $book->linePrice;
+                }
+
+                $data = [
+                    'cartEmpty' => false,
+                    'totalPrice' => $totalPrice,
+                    'totalItems' => array_sum($_SESSION['cart']),
+                ];
+            }
 
             echo json_encode($data);
         } else {

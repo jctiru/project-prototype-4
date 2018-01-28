@@ -40,12 +40,12 @@
 								<span class="invalid-feedback"><?php echo $data['price_err'] ?></span>
 							</div>
 							<?php foreach($data['genres'] as $genre): ?>
-								<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="<?php echo $genre->id; ?>" name="<?php echo $genre->id; ?>" id="<?php echo $genre->id; ?>" <?php echo $data['genresChecked'][$genre->id] ?>>
-								<label class="form-check-label" for="<?php echo $genre->id; ?>">
+								<div class="custom-control custom-checkbox">
+								<input class="custom-control-input" type="checkbox" value="<?php echo $genre->id; ?>" name="<?php echo $genre->id; ?>" id="<?php echo $genre->id; ?>" <?php echo $data['genresChecked'][$genre->id] ?>>
+								<label class="custom-control-label" for="<?php echo $genre->id; ?>">
 									<?php echo $genre->genre ?>
 								</label>
-								</div>							
+								</div>								
 							<?php endforeach; ?>
 						</div>
 					</div>
