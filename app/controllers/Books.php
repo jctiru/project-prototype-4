@@ -26,63 +26,130 @@
 		}
 
 		public function index(){
-			$this->page(1);
+			$this->page();
 		}
 
-		public function page($page){
+		public function page($page=1){
+			// Check if search query
+			if(isset($_GET['novel-search']) && isset($_GET['novel-genre'])){
+				// Check if search query is just empty or filled
+				if(!empty(trim($_GET['novel-search'])) || $_GET['novel-genre'] != '0'){
+					// Run paginate with query
+					$this->paginate($page, $_GET['novel-search'], $_GET['novel-genre']);
+				} else {
+					// Empty search query -> load default
+					$this->paginate($page);
+				}
+			} else {
+				$this->paginate($page);				
+			}
+		}
+
+		private function paginate($page, $search="", $genre=""){
+			// Page number
+			$page = $page;
 			// Number of items per page 
 			$limit = 8;
-
       		// How may adjacent page links should be shown on each side of the current page link.
-      		$adjacents = 2;
+      		$adjacents = 2;	
 
-      		// Get total rows		
-      		$totalRows = $this->bookModel->getRowCount();
+			// Check if search AND genre is empty to just load default
+			if($search=="" && $genre==""){
+				// No search query
 
-      		// Compute total pages rounded up
-      		$totalPages = ceil($totalRows / $limit);
+				// Get total rows
+				$this->bookModel->getBooks();
+	  			$totalRows = $this->bookModel->getRowCount();
+	      		// Compute total pages rounded up
+	      		$totalPages = ceil($totalRows / $limit);
+	      		// Compute for the offset
+		        $offset = $limit * ($page-1);
 
-      		// Compute for the offset
-	        $offset = $limit * ($page-1);
+		        //Here we generates the range of the page numbers which will display.
+		      	if($totalPages <= (1+($adjacents * 2))) {
+		        	$start = 1;
+		        	$end   = $totalPages;
+		      	} else {
+		        	if(($page - $adjacents) > 1) { 
+		          		if(($page + $adjacents) < $totalPages) { 
+		            		$start = ($page - $adjacents);            
+		            		$end   = ($page + $adjacents);         
+		          		} else {             
+		            		$start = ($totalPages - (1+($adjacents*2)));  
+		            		$end   = $totalPages;               
+		         		}
+		        	} else {               
+		          		$start = 1;                                
+		          		$end   = (1+($adjacents * 2));             
+		        	}
+		      	}
+		      	//If you want to display all page links in the pagination then
+		    	//uncomment the following two lines
+			    //and comment out the whole if condition just above it.
+			    // $start = 1;
+			    // $end = $totalPages;
 
-	        //Here we generates the range of the page numbers which will display.
-	      	if($totalPages <= (1+($adjacents * 2))) {
-	        	$start = 1;
-	        	$end   = $totalPages;
-	      	} else {
-	        	if(($page - $adjacents) > 1) { 
-	          		if(($page + $adjacents) < $totalPages) { 
-	            		$start = ($page - $adjacents);            
-	            		$end   = ($page + $adjacents);         
-	          		} else {             
-	            		$start = ($totalPages - (1+($adjacents*2)));  
-	            		$end   = $totalPages;               
-	         		}
-	        	} else {               
-	          		$start = 1;                                
-	          		$end   = (1+($adjacents * 2));             
-	        	}
-	      	}
+		        // Get the books and display
+				$books = $this->bookModel->getBooksByPagination($offset, $limit);
+				foreach ($books as $book) {
+					$bookGenres = $this->bookModel->getBookGenresById($book->id);
+					$book->category = [];
+					foreach ($bookGenres as $bookGenre) {
+						// array_push($book->category, $bookGenre->genre);
+						$book->category[$bookGenre->genre_id] = $bookGenre->genre;
+					}
+				}		
+			} else {
+				// With search query
+				// Get total rows
+				$this->bookModel->getBooksBySearch($search, $genre);
+	  			$totalRows = $this->bookModel->getRowCount();
+	      		// Compute total pages rounded up
+	      		$totalPages = ceil($totalRows / $limit);
+	      		// Compute for the offset
+		        $offset = $limit * ($page-1);
 
-	      	//If you want to display all page links in the pagination then
-	    	//uncomment the following two lines
-		    //and comment out the whole if condition just above it.
-		    // $start = 1;
-		    // $end = $totalPages;
+		        //Here we generates the range of the page numbers which will display.
+		      	if($totalPages <= (1+($adjacents * 2))) {
+		        	$start = 1;
+		        	$end   = $totalPages;
+		      	} else {
+		        	if(($page - $adjacents) > 1) { 
+		          		if(($page + $adjacents) < $totalPages) { 
+		            		$start = ($page - $adjacents);            
+		            		$end   = ($page + $adjacents);         
+		          		} else {             
+		            		$start = ($totalPages - (1+($adjacents*2)));  
+		            		$end   = $totalPages;               
+		         		}
+		        	} else {               
+		          		$start = 1;                                
+		          		$end   = (1+($adjacents * 2));             
+		        	}
+		      	}
+		      	//If you want to display all page links in the pagination then
+		    	//uncomment the following two lines
+			    //and comment out the whole if condition just above it.
+			    // $start = 1;
+			    // $end = $totalPages;
 
-	        // Get the books and display
-			$books = $this->bookModel->getBooksByPagination($offset, $limit);
-			foreach ($books as $book) {
-				$bookGenres = $this->bookModel->getBookGenresById($book->id);
-				$book->category = [];
-				foreach ($bookGenres as $bookGenre) {
-					// array_push($book->category, $bookGenre->genre);
-					$book->category[$bookGenre->genre_id] = $bookGenre->genre;
+		        // Get the books and display
+				$books = $this->bookModel->getBooksByPaginationSearch($search, $genre, $offset, $limit);
+				foreach ($books as $book) {
+					$bookGenres = $this->bookModel->getBookGenresById($book->id);
+					$book->category = [];
+					foreach ($bookGenres as $bookGenre) {
+						// array_push($book->category, $bookGenre->genre);
+						$book->category[$bookGenre->genre_id] = $bookGenre->genre;
+					}
 				}
 			}
 
+			$genresList = $this->bookModel->getGenresList();
+
 			$data = [
 				'books' => $books,
+				'genresList' => $genresList,
 				'page' => $page,
 				'start' => $start,
 				'end' => $end,

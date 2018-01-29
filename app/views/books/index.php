@@ -2,8 +2,8 @@
 <div class="container">
 	<?php flash('book_message') ?>
 	<div class="row mb-3">
-		<div class="col-md-6">
-			<h1>Shop</h1>
+		<div class="col-md-6 my-1">
+			<h1 class="mb-0">Shop</h1>
 		</div>
 		<?php if(isset($_SESSION['admin_mode'])): ?>
 			<div class="col-md-6">
@@ -11,6 +11,7 @@
 			</div>
 		<?php endif; ?>
 	</div>
+    <?php require APPROOT .'/views/inc/search.php'; ?>
 	<div class="row">
         <div class="col-md-12">
             <div class="container">

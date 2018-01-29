@@ -6,8 +6,36 @@
 			$this->db = new Database();	
 		}
 
+		public function getBooksBySearch($name, $genre){
+			$search = "%$name%";
+			if($genre == "0"){
+				$this->db->query("SELECT * FROM items JOIN items_genres ON items.id = items_genres.item_id JOIN genres ON items_genres.genre_id = genres.id WHERE name LIKE :search GROUP BY name ORDER BY created_at DESC");
+			} else {
+				$this->db->query("SELECT * FROM items JOIN items_genres ON items.id = items_genres.item_id JOIN genres ON items_genres.genre_id = genres.id WHERE name LIKE :search AND genre = :genre GROUP BY name ORDER BY created_at DESC");
+				$this->db->bind(":genre", $genre);
+			}	
+			$this->db->bind(":search", $search);		
+			$results = $this->db->resultSet();
+			return $results;
+		}
+
+		public function getBooksByPaginationSearch($name, $genre, $offset, $limiter){
+			$search = "%$name%";
+			if($genre == "0"){
+				$this->db->query("SELECT items.id, name, description, price, image, created_at FROM items JOIN items_genres ON items.id = items_genres.item_id JOIN genres ON items_genres.genre_id = genres.id WHERE name LIKE :search GROUP BY name ORDER BY created_at DESC LIMIT :offset, :limiter");
+			} else {
+				$this->db->query("SELECT items.id, name, description, price, image, created_at FROM items JOIN items_genres ON items.id = items_genres.item_id JOIN genres ON items_genres.genre_id = genres.id WHERE name LIKE :search AND genre = :genre GROUP BY name ORDER BY created_at DESC LIMIT :offset, :limiter");
+				$this->db->bind(":genre", $genre);
+			}	
+			// Bind Values 
+			$this->db->bind(":search", $search);
+			$this->db->bind(":offset", $offset);
+			$this->db->bind(":limiter", $limiter);
+			$results = $this->db->resultSet();
+			return $results;
+		}
+
 		public function getRowCount(){
-			$this->getBooks();
 			return $this->db->rowCount();
 		}
 
