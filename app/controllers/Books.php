@@ -1,12 +1,77 @@
 <?php 
 	class Books extends Controller {
+
+		// Old index
+		// public function index(){
+		// 	// Get books
+		// 	$books= $this->bookModel->getBooks();
+		// 	foreach ($books as $book) {
+		// 		$bookGenres = $this->bookModel->getBookGenresById($book->id);
+		// 		$book->category = [];
+		// 		foreach ($bookGenres as $bookGenre) {
+		// 			// array_push($book->category, $bookGenre->genre);
+		// 			$book->category[$bookGenre->genre_id] = $bookGenre->genre;
+		// 		}
+		// 	}
+
+		// 	$data = [
+		// 		'books' => $books
+		// 	];
+
+		// 	$this->view('books/index', $data);
+		// }
+
 		public function __construct(){
 			$this->bookModel = $this->model('Book');
 		}
 
 		public function index(){
-			// Get books
-			$books= $this->bookModel->getBooks();
+			$this->page(1);
+		}
+
+		public function page($page){
+			// Number of items per page 
+			$limit = 8;
+
+      		// How may adjacent page links should be shown on each side of the current page link.
+      		$adjacents = 2;
+
+      		// Get total rows		
+      		$totalRows = $this->bookModel->getRowCount();
+
+      		// Compute total pages rounded up
+      		$totalPages = ceil($totalRows / $limit);
+
+      		// Compute for the offset
+	        $offset = $limit * ($page-1);
+
+	        //Here we generates the range of the page numbers which will display.
+	      	if($totalPages <= (1+($adjacents * 2))) {
+	        	$start = 1;
+	        	$end   = $totalPages;
+	      	} else {
+	        	if(($page - $adjacents) > 1) { 
+	          		if(($page + $adjacents) < $totalPages) { 
+	            		$start = ($page - $adjacents);            
+	            		$end   = ($page + $adjacents);         
+	          		} else {             
+	            		$start = ($totalPages - (1+($adjacents*2)));  
+	            		$end   = $totalPages;               
+	         		}
+	        	} else {               
+	          		$start = 1;                                
+	          		$end   = (1+($adjacents * 2));             
+	        	}
+	      	}
+
+	      	//If you want to display all page links in the pagination then
+	    	//uncomment the following two lines
+		    //and comment out the whole if condition just above it.
+		    // $start = 1;
+		    // $end = $totalPages;
+
+	        // Get the books and display
+			$books = $this->bookModel->getBooksByPagination($offset, $limit);
 			foreach ($books as $book) {
 				$bookGenres = $this->bookModel->getBookGenresById($book->id);
 				$book->category = [];
@@ -15,9 +80,15 @@
 					$book->category[$bookGenre->genre_id] = $bookGenre->genre;
 				}
 			}
+
 			$data = [
-				'books' => $books 
+				'books' => $books,
+				'page' => $page,
+				'start' => $start,
+				'end' => $end,
+				'totalPages' => $totalPages
 			];
+
 			$this->view('books/index', $data);
 		}
 

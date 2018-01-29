@@ -38,4 +38,5 @@
         </div>
     </div>
 </div>
+<?php require APPROOT .'/views/inc/pagination.php'; ?>
 <?php require APPROOT .'/views/inc/footer.php'; ?>

@@ -97,7 +97,7 @@ $(document).ready(function() {
         var bookRowId = $(this).data('index');
         e.preventDefault();
         startBlockingCart();
-        var data = {'bookRowId' : bookRowId};
+        var data = { 'bookRowId': bookRowId };
         $.ajax({
             url: 'http://localhost/project-prototype-4/users/ajaxdeletecart',
             type: 'POST',
@@ -110,7 +110,7 @@ $(document).ready(function() {
                 clearTimeout(timer);
                 timer = setTimeout(function() {
                     stopBlockingCart();
-                    $('#bookRowId_' + bookRowId).hide('fast', function(){ $('#bookRowId_' + bookRowId).remove(); });
+                    $('#bookRowId_' + bookRowId).hide('fast', function() { $('#bookRowId_' + bookRowId).remove(); });
                     $('#cart-alert').fadeIn('fast');
                     $('#cart-message').html("Book removed from cart.");
                 }, 800);
@@ -118,7 +118,7 @@ $(document).ready(function() {
             success: function(data) {
                 console.log(data);
                 var updatedCart = JSON.parse(data);
-                if(updatedCart.cartEmpty == false){
+                if (updatedCart.cartEmpty == false) {
                     $('#cart-total-cost').html('P' + updatedCart.totalPrice);
                     $('#cartItems').html(" " + updatedCart.totalItems);
                 } else {
@@ -128,5 +128,18 @@ $(document).ready(function() {
                 }
             }
         });
+    });
+
+    // Go back on last page of hostname on books/show.php
+    $('a.back').click(function(){
+        if(document.referrer.indexOf(window.location.hostname) != -1){
+            // if from books/show/x page go back to books/page/x
+            parent.history.back();
+            return false;
+        } else {
+            // if from direct url input, go to shop page
+            window.location.href = "http://localhost/project-prototype-4/books";
+            return false;
+        }
     });
 });

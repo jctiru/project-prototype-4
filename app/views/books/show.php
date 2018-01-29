@@ -1,6 +1,6 @@
 <?php require APPROOT .'/views/inc/header.php'; ?>
 <div class="container">
-    <a href="<?php echo URLROOT ?>/books" class="btn btn-ligth m-1"><i class="fa fa-backward"></i> Back</a>
+    <a href="" class="btn btn-ligth m-1 back"><i class="fa fa-backward"></i> Back</a>
     <br>
     <div class="card mb-5">
         <div class="row ">
@@ -9,13 +9,13 @@
             </div>
             <div class="col-md-5 p-3">
                 <div class="card-body p-3">
-                    <h4 class="card-title"><?php echo $data['book']->name ?></h4>
+                    <h3 class="card-title text-primary"><?php echo $data['book']->name ?></h3>
                     <h6 class="card-subtitle mb-3 text-muted">
                       <?php foreach($data['book']->category as $category): ?>
                         <?php echo $category . " " ?>
                       <?php endforeach; ?>
                     </h6>
-                    <p class="card-text">
+                    <p class="card-text text-dark">
                         <?php echo $data['book']->description ?>
                     </p>
                 </div>
@@ -25,7 +25,7 @@
                     <div class="card-header">
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">Price: <?php echo $data['book']->price ?></h4>
+                        <h4 class="card-title mb-0 text-primary">Price: P<?php echo $data['book']->price ?></h4>
                         <?php if(isset($_SESSION['admin_mode'])): ?>
                         <?php elseif(isset($_SESSION['user_id'])) :?>
                             <button data-index="<?php echo $data['book']->id ?>" id="cart-button" class="btn btn-sm btn-primary">
@@ -46,7 +46,7 @@
                 <?php if(isset($_SESSION['admin_mode'])): ?>
                 <div class="card text-center m-4">
                     <div class="card-header">
-                        <h5>ADMIN PANEL</h5>
+                        <h5 class="mb-0">ADMIN PANEL</h5>
                     </div>
                     <div class="card-body">
                         <a href="<?php echo URLROOT ?>/books/edit/<?php echo $data['book']->id; ?>" class="btn btn-info btn-block">Edit</a>

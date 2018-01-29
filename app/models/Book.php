@@ -6,8 +6,22 @@
 			$this->db = new Database();	
 		}
 
+		public function getRowCount(){
+			$this->getBooks();
+			return $this->db->rowCount();
+		}
+
 		public function getBooks(){
 			$this->db->query("SELECT * FROM items ORDER BY created_at DESC");
+			$results = $this->db->resultSet();
+			return $results;
+		}
+
+		public function getBooksByPagination($offset, $limiter){
+			$this->db->query("SELECT * FROM items ORDER BY created_at DESC LIMIT :offset, :limiter");
+			// Bind values
+			$this->db->bind(":offset", $offset);
+			$this->db->bind(":limiter", $limiter);
 			$results = $this->db->resultSet();
 			return $results;
 		}
