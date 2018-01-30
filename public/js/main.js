@@ -124,6 +124,7 @@ $(document).ready(function() {
                 } else {
                     $('#cart-total-cost').html('P0');
                     $('#cartItems').html(" 0");
+                    $('#checkout-button').prop('disabled', true);
                     $('#cart-update-footer').fadeOut(800);
                 }
             }

@@ -24,13 +24,13 @@
                 </div>
                 <div class="col-md-5">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-dark">
                             Price
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-dark">
                             Quantity
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 text-dark">
                             Subtotal
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                     </h4>
                 </div>
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-success btn-block">
+                    <button id="checkout-button" type="button" <?php echo (isset($_SESSION['cart']) && array_sum($_SESSION['cart'])>0) ? '' : 'disabled'; ?> class="btn btn-success btn-block">
                         <i class="fa fa-shopping-basket"></i> Checkout
                     </button>
                 </div>

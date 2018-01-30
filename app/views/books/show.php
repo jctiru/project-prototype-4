@@ -25,7 +25,7 @@
                     <div class="card-header">
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title mb-0 text-primary">Price: P<?php echo $data['book']->price ?></h4>
+                        <h4 class="card-title mb-0 text-dark">Price: P<?php echo $data['book']->price ?></h4>
                         <?php if(isset($_SESSION['admin_mode'])): ?>
                         <?php elseif(isset($_SESSION['user_id'])) :?>
                             <button data-index="<?php echo $data['book']->id ?>" id="cart-button" class="btn btn-sm btn-primary mt-2">

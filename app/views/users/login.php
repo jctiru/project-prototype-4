@@ -1,8 +1,8 @@
 <?php require APPROOT .'/views/inc/header.php'; ?>
-<div class="container">
+<div class="container my-5">
 	<div class="row">
 		<div class="col-md-6 mx-auto">
-			<div class="card card-body bg-light mt-5 mb-5">
+			<div class="card border-secondary card-body bg-light mt-5 mb-5">
 				<?php flash('register_success'); ?>
 				<h2>Login</h2>
 				<p>Please fill in your credentials to log in</p>

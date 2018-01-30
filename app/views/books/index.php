@@ -28,8 +28,8 @@
 	                                <?php endforeach; ?>
                             	</h6>
                             </div>
-                            <div class="card-footer">
-								Price: <?php echo $book->price ?>
+                            <div class="card-footer text-dark">
+								Price: P<?php echo $book->price ?>
                             </div>
                         </div>
                     </div>
