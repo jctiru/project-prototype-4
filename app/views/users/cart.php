@@ -42,11 +42,15 @@
                 <div id="bookRowId_<?php echo $book->id ?>">
                     <hr>                
                     <div class="row">
-                        <div class="col-md-1"><img class="img-fluid" src="<?php echo IMGSRC . $book->image; ?>">
+                        <div class="col-md-1"><a href="<?php echo URLROOT ?>/books/show/<?php echo $book->id ?>"><img class="img-fluid" src="<?php echo IMGSRC . $book->image; ?>"></a>
                         </div>
                         <div class="col-md-6">
-                            <h5 class="product-name"><strong><?php echo $book->name ?></strong></h5>
-                            <p><small><?php //echo $book->description ?></small></p>
+                            <h5 class="product-name mb-0"><strong><a href="<?php echo URLROOT ?>/books/show/<?php echo $book->id ?>"><?php echo $book->name ?></a></strong></h5>
+                            <p class="text-muted mb-0">
+                                <?php foreach($book->category as $genre): ?>
+                                    <?php echo $genre . " " ?>
+                                <?php endforeach; ?>    
+                                </p>
                         </div>
                         <div class="col-md-5">
                             <div class="row align-items-center">
