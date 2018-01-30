@@ -181,11 +181,11 @@ class Users extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $bookIdArray = [];
+            $totalPrice = 0;
 
-            // Update quantities and lineprice
+            // Update quantities and collect ids
             foreach ($_POST as $key => $value) {
                 // Get specific quantity elements from $_POST
-
                 if (strpos($key, 'bookQuantityId_') !== false) {
                     // Strip off id from $_POST['bookQuantityId_X']
                     $id = str_replace('bookQuantityId_', '', $key);
@@ -195,18 +195,10 @@ class Users extends Controller
                     array_push($bookIdArray, intval($id));
                 }
             }
-            $books = $this->bookModel->getMultipleBooksById($bookIdArray);
-            // Set line price
-            foreach ($books as $book) {
-                $book->linePrice = intval($book->price) * intval($_SESSION['cart'][$book->id]);
-            }
 
-            // Set total price
-            $totalPrice = 0;
-            foreach ($books as $book) {
-                // Add all line price
-                $totalPrice += $book->linePrice;
-            }
+            $books = $this->bookModel->getMultipleBooksById($bookIdArray);  
+            $books = $this->initializeCartBooks($books);
+            $totalPrice = $this->computeTotalPriceCartBooks($books);
 
             $data = [
                 'books'      => $books,
@@ -255,18 +247,9 @@ class Users extends Controller
                 ];
 
             } else {
-                $books = $this->bookModel->getMultipleBooksById($bookIdArray);
-                // Set line price
-                foreach ($books as $book) {
-                    $book->linePrice = intval($book->price) * intval($_SESSION['cart'][$book->id]);
-                }
-
-                // Set total price
-                $totalPrice = 0;
-                foreach ($books as $book) {
-                    // Add all line price
-                    $totalPrice += $book->linePrice;
-                }
+                $books = $this->bookModel->getMultipleBooksById($bookIdArray);  
+                $books = $this->initializeCartBooks($books);
+                $totalPrice = $this->computeTotalPriceCartBooks($books);
 
                 $data = [
                     'cartEmpty' => false,
@@ -274,7 +257,6 @@ class Users extends Controller
                     'totalItems' => array_sum($_SESSION['cart']),
                 ];
             }
-
             echo json_encode($data);
         } else {
             redirect('');
@@ -291,27 +273,20 @@ class Users extends Controller
                 // Check if there is items in cart
                 if (isset($_SESSION['cart'])) {
                     $bookIdArray = [];
+                    
                     foreach ($_SESSION['cart'] as $key => $value) {
                         array_push($bookIdArray, $key);
                     }
-                    $books = $this->bookModel->getMultipleBooksById($bookIdArray);
 
-                    // Set line price
-                    foreach ($books as $book) {
-                        $book->linePrice = intval($book->price) * intval($_SESSION['cart'][$book->id]);
-                    }
-
-                    // Set total price
-                    $totalPrice = 0;
-                    foreach ($books as $book) {
-                        // Add all line price
-                        $totalPrice += $book->linePrice;
-                    }
+                    $books = $this->bookModel->getMultipleBooksById($bookIdArray);  
+                    $books = $this->initializeCartBooks($books);
+                    $totalPrice = $this->computeTotalPriceCartBooks($books);
 
                     $data = [
                         'books'      => $books,
                         'totalPrice' => $totalPrice,
                     ];
+
                     // Load view
                     $this->view('users/cart', $data);
                 } else {
@@ -326,6 +301,32 @@ class Users extends Controller
         } else {
             redirect('books');
         }
+    }
+
+    // Set contents of books to be used on cart page
+    private function initializeCartBooks($books){
+        $books = $books;
+        foreach ($books as $book) {
+            // Set line price
+            $book->linePrice = intval($book->price) * intval($_SESSION['cart'][$book->id]);
+            // Set categories
+            $bookGenres = $this->bookModel->getBookGenresById($book->id);
+            $book->category = [];
+            foreach ($bookGenres as $bookGenre) {
+                $book->category[$bookGenre->genre_id] = $bookGenre->genre;
+            }
+        }
+        return $books;
+    }
+
+    // Compute for total price on cart page
+    private function computeTotalPriceCartBooks($books){
+        $totalPrice = 0;
+        foreach ($books as $book) {
+            // Add all line price
+            $totalPrice += $book->linePrice;
+        }
+        return $totalPrice;
     }
 
     // Create Session
