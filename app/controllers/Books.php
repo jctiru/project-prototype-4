@@ -49,7 +49,7 @@
 			// Page number
 			$page = $page;
 			// Number of items per page 
-			$limit = 8;
+			$limit = 12;
       		// How may adjacent page links should be shown on each side of the current page link.
       		$adjacents = 2;	
 
