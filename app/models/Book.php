@@ -6,6 +6,12 @@
 			$this->db = new Database();	
 		}
 
+		public function getRandomBooks(){
+			$this->db->query("SELECT * FROM items ORDER BY RAND() LIMIT 4");
+			$results = $this->db->resultSet();
+			return $results;
+		}
+
 		public function getBooksBySearch($name, $genre){
 			$search = "%$name%";
 			if($genre == "0"){

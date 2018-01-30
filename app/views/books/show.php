@@ -2,7 +2,7 @@
 <div class="container">
     <a href="" class="btn btn-ligth m-1 back"><i class="fa fa-backward"></i> Back</a>
     <br>
-    <div class="card mb-5">
+    <div class="card border-secondary mb-5">
         <div class="row ">
             <div class="col-md-4">
                 <img src="<?php echo IMGSRC . $data['book']->image; ?>" class="w-100">
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card text-center m-4">
+                <div class="card border-secondary text-center m-4">
                     <div class="card-header">
                     </div>
                     <div class="card-body">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <?php if(isset($_SESSION['admin_mode'])): ?>
-                <div class="card text-center m-4">
+                <div class="card border-secondary text-center m-4">
                     <div class="card-header">
                         <h5 class="mb-0">ADMIN PANEL</h5>
                     </div>

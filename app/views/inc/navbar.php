@@ -16,6 +16,9 @@
           <li class="nav-item">
             <a class="nav-link" href="<?php echo URLROOT; ?>/pages/about">About</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo URLROOT; ?>/pages/contact">Contact</a>
+          </li>
         </ul>
         <ul class="navbar-nav ml-auto">
           <?php if (isset($_SESSION['user_id'])): ?>

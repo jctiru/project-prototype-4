@@ -4,7 +4,7 @@
         <button type="button" class="close" id="cart-alert-close">&times;</button>
         <strong id="cart-message"></strong>
     </div>
-	<div id="cart-section" class="card">
+	<div id="cart-section" class="card border-secondary">
         <div class="card-header">
             <div class="row align-items-center">
                 <div class="col-md-6">
