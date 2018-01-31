@@ -35,7 +35,7 @@
                             </button>
                         <?php else: ?>
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary btn-block mt-2" data-toggle="modal" data-target="#cartModal">
+                            <button type="button" class="btn btn-primary btn-sm mt-2" data-toggle="modal" data-target="#cartModal">
                                 <i class="fa fa-shopping-cart fa-lg"></i> Add to Cart
                             </button>    
                         <?php endif ?>

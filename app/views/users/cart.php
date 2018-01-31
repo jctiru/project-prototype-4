@@ -1,5 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php';?>
 <div class="container mt-5 mb-5">
+    <?php flash('checkout_message') ?>
     <div id="cart-alert" style="display: none;" class="alert alert-dismissible alert-success fade show">
         <button type="button" class="close" id="cart-alert-close">&times;</button>
         <strong id="cart-message"></strong>
@@ -103,9 +104,11 @@
                     </h4>
                 </div>
                 <div class="col-md-3">
-                    <button id="checkout-button" type="button" <?php echo (isset($_SESSION['cart']) && array_sum($_SESSION['cart'])>0) ? '' : 'disabled'; ?> class="btn btn-success btn-block">
-                        <i class="fa fa-shopping-basket"></i> Checkout
-                    </button>
+                    <form method="POST" action="<?php echo URLROOT ?>/users/checkout">
+                        <button id="checkout-button" type="submit" <?php echo (isset($_SESSION['cart']) && array_sum($_SESSION['cart'])>0) ? '' : 'disabled'; ?> class="btn btn-success btn-block">
+                            <i class="fa fa-shopping-basket"></i> Checkout
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

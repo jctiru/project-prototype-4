@@ -14,8 +14,10 @@
 					$book->category[$bookGenre->genre_id] = $bookGenre->genre;
 				}
 			}
+			$genresList = $this->bookModel->getGenresList();
 			$data = [
-				'books' => $books
+				'books' => $books,
+				'genresList' => $genresList
 			];
 			$this->view('pages/index', $data);
 		}

@@ -5,6 +5,37 @@ class Users extends Controller
     {
         $this->userModel = $this->model('User');
         $this->bookModel = $this->model('Book');
+        $this->orderModel = $this->model('Order');
+    }
+
+    public function checkout(){
+        // Check for POST
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $bookIdArray = [];
+            foreach ($_SESSION['cart'] as $key => $value) {
+                array_push($bookIdArray, $key);
+            }
+
+            $books = $this->bookModel->getMultipleBooksById($bookIdArray);  
+            $books = $this->initializeCartBooks($books);
+            $totalPrice = $this->computeTotalPriceCartBooks($books);
+
+            $data = [
+                'userId' => $_SESSION['user_id'],
+                'books'      => $books,
+                'totalPrice' => $totalPrice,
+            ];
+
+            if($this->orderModel->addOrder($data)){
+                unset($_SESSION['cart']);
+                flash('checkout_message', 'Order added! Thank you for buying! Have a good read!');
+                redirect('users/cart');
+            } else {
+                die("Something went wrong");
+            }
+        } else {
+            redirect('');
+        }
     }
 
     public function register()
@@ -307,6 +338,8 @@ class Users extends Controller
     private function initializeCartBooks($books){
         $books = $books;
         foreach ($books as $book) {
+            // Set quantity
+            $book->quantity = intval($_SESSION['cart'][$book->id]);
             // Set line price
             $book->linePrice = intval($book->price) * intval($_SESSION['cart'][$book->id]);
             // Set categories
