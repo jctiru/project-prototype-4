@@ -23,7 +23,7 @@
         <ul class="navbar-nav ml-auto">
           <?php if (isset($_SESSION['user_id'])): ?>
             <li class="nav-item">
-              <a class="nav-link" href="#"><?php echo $_SESSION['user_name'] ?></a>
+              <a class="nav-link" href="<?php echo URLROOT; ?>/orders"><?php echo $_SESSION['user_name'] ?></a>
             </li>
             <?php if (!isset($_SESSION['admin_mode'])): ?>
             <li class="nav-item">

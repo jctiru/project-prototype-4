@@ -12,7 +12,7 @@
                     <h5 class="mb-0"><i class="fa fa-shopping-cart fa-lg"></i> Shopping Cart</h5>
                 </div>
                 <div class="col-md-6">
-                    <a href="<?php echo URLROOT; ?>/books" class="btn btn-primary btn-sm btn-block">
+                    <a href="<?php echo URLROOT; ?>/books" class="btn btn-dark btn-sm btn-block">
                         <i class="fa fa-backward"></i> Continue shopping
                     </a>
                 </div>
@@ -82,7 +82,7 @@
                         <h6 class="text-right mb-0">Added items?</h6>
                     </div>
                     <div class="col-md-3">
-                        <button type="submit" disabled id="update-cart-button" form="cart-form" class="btn btn-outline-primary btn-sm btn-block">
+                        <button type="submit" disabled id="update-cart-button" form="cart-form" class="btn btn-outline-dark btn-sm btn-block">
                             <i class="fa fa-refresh"></i> Update Cart
                         </button>
                     </div>

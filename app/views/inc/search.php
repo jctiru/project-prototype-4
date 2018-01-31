@@ -12,7 +12,7 @@
 		    </select>
 		</div>
 		<div class="col-md-2 mb-1">
-			<button class="btn btn-outline-primary btn-block" type="submit"><i class="fa fa-search"></i> Find Book</button>
+			<button class="btn btn-outline-dark btn-block" type="submit"><i class="fa fa-search"></i> Find Book</button>
 		</div>
 	</div>
 </form>
