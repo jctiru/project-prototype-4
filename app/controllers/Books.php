@@ -413,13 +413,20 @@
 				if($_SERVER["REQUEST_METHOD"] == 'POST'){
 					// Get existing book from model
 					$book = $this->bookModel->getBookById($id);
-					if($this->bookModel->deleteBook($id)){
-						// Delete local image
-						unlink(PUBLICROOT . "/img/" . $book->image);
-						flash('book_message', 'Book Removed');
+					// Check if book is not already ordered
+					if($this->bookModel->checkBookIfOrdered($id)){
+						// Give warning that you can't delete book
+						flash('book_message', 'Cannot delete book, book is already ordered!', 'alert alert-danger alert-dismissible fade show');
 						redirect('books');
 					} else {
-						die('Something went wrong');
+						if($this->bookModel->deleteBook($id)){
+							// Delete local image
+							unlink(PUBLICROOT . "/img/" . $book->image);
+							flash('book_message', 'Book Removed');
+							redirect('books');
+						} else {
+							die('Something went wrong');
+						}
 					}
 				} else {
 					redirect('books');

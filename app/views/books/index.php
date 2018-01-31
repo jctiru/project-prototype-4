@@ -2,12 +2,12 @@
 <div class="container">
 	<?php flash('book_message') ?>
 	<div class="row mb-3">
-		<div class="col-md-6 my-1">
-			<h1 class="mb-0">Novels</h1>
+		<div class="col-md-6 mt-2">
+			<h1 class="mb-0 text-dark"><i class="fa fa-book"></i>Novels</h1>
 		</div>
 		<?php if(isset($_SESSION['admin_mode'])): ?>
 			<div class="col-md-6">
-				<a href="<?php echo URLROOT; ?>/books/add" class="btn btn-primary pull-right"><i class="fa fa-pencil"></i> Add Book</a>
+				<a href="<?php echo URLROOT; ?>/books/add" class="btn btn-dark pull-right"><i class="fa fa-pencil"></i> Add Book</a>
 			</div>
 		<?php endif; ?>
 	</div>

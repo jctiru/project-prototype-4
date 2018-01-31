@@ -1,5 +1,5 @@
 <?php require APPROOT . '/views/inc/header.php';?>
-<div class="container mt-5 mb-5">
+<div class="container mt-5 mb-5 pb-5">
     <?php flash('checkout_message') ?>
     <div id="cart-alert" style="display: none;" class="alert alert-dismissible alert-success fade show">
         <button type="button" class="close" id="cart-alert-close">&times;</button>
@@ -21,7 +21,7 @@
         <div class="card-body">
             <div class="row align-items-center">
                 <div class="col-md-7">
-                    <h3 class="mb-0">Product</h3>
+                    <h3 class="mb-0">Item</h3>
                 </div>
                 <div class="col-md-5">
                     <div class="row">

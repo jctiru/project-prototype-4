@@ -49,10 +49,10 @@
                         <h5 class="mb-0">ADMIN PANEL</h5>
                     </div>
                     <div class="card-body">
-                        <a href="<?php echo URLROOT ?>/books/edit/<?php echo $data['book']->id; ?>" class="btn btn-info btn-block">Edit</a>
+                        <a href="<?php echo URLROOT ?>/books/edit/<?php echo $data['book']->id; ?>" class="btn btn-sm btn-info btn-block"><i class="fa fa-pencil-square-o"></i>Edit</a>
                         <hr>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#deleteModal">
+                        <button type="button" class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i>
                             Delete
                         </button>
                     </div>

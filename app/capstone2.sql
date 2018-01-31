@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 29, 2018 at 05:52 PM
+-- Generation Time: Jan 31, 2018 at 04:14 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -374,8 +374,29 @@ INSERT INTO `items_genres` (`id`, `item_id`, `genre_id`) VALUES
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `customer_id` int(11) DEFAULT NULL,
-  `order_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `order_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `total_price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `customer_id`, `order_date`, `total_price`) VALUES
+(2, 1, '2018-01-31 14:37:27', 167),
+(3, 1, '2018-01-31 14:41:00', 340),
+(4, 1, '2018-01-31 14:43:01', 1265),
+(5, 1, '2018-01-31 16:59:09', 2505),
+(6, 1, '2018-01-31 16:59:34', 748),
+(7, 1, '2018-01-31 16:59:59', 1322),
+(8, 1, '2018-01-31 17:00:15', 352),
+(9, 1, '2018-01-31 17:15:10', 111),
+(10, 2, '2018-01-31 18:12:43', 1020),
+(11, 2, '2018-01-31 18:13:09', 1078),
+(12, 2, '2018-01-31 18:13:28', 222),
+(13, 1, '2018-01-31 20:39:58', 320),
+(14, 3, '2018-01-31 20:41:46', 370),
+(15, 3, '2018-01-31 20:43:13', 481);
 
 -- --------------------------------------------------------
 
@@ -389,6 +410,49 @@ CREATE TABLE `order_details` (
   `item_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`id`, `order_id`, `item_id`, `quantity`) VALUES
+(1, 2, 59, 1),
+(2, 3, 2, 2),
+(3, 3, 20, 1),
+(4, 4, 15, 1),
+(5, 4, 16, 1),
+(6, 4, 21, 1),
+(7, 4, 40, 1),
+(8, 4, 49, 1),
+(9, 4, 54, 1),
+(10, 5, 30, 1),
+(11, 5, 31, 2),
+(12, 5, 34, 2),
+(13, 5, 50, 3),
+(14, 5, 56, 3),
+(15, 6, 32, 2),
+(16, 6, 33, 2),
+(17, 7, 25, 1),
+(18, 7, 28, 2),
+(19, 7, 29, 2),
+(20, 8, 17, 1),
+(21, 8, 47, 1),
+(22, 9, 58, 1),
+(23, 10, 48, 2),
+(24, 10, 50, 2),
+(25, 10, 54, 2),
+(26, 11, 40, 1),
+(27, 11, 46, 2),
+(28, 11, 60, 2),
+(29, 12, 5, 1),
+(30, 12, 7, 1),
+(31, 12, 8, 1),
+(32, 13, 48, 2),
+(33, 14, 48, 1),
+(34, 14, 50, 1),
+(35, 15, 34, 1),
+(36, 15, 58, 1),
+(37, 15, 60, 1);
 
 -- --------------------------------------------------------
 
@@ -499,13 +563,13 @@ ALTER TABLE `items_genres`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `users`

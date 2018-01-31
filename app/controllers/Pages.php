@@ -28,5 +28,9 @@
 			];
 			$this->view('pages/about', $data);
 		}
+
+		public function contact(){
+			$this->view('pages/contact');
+		}
 	}
  ?>

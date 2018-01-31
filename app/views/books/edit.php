@@ -4,7 +4,7 @@
 		<div class="col-md-10 mx-auto">
 			<a href="" class="btn btn-ligth back"><i class="fa fa-backward"></i> Back</a>
 			<div class="card card-body bg-light mt-2 mb-5">
-				<h2>Edit Book</h2>
+				<h2 class="text-dark">Edit Book</h2>
 				<p>Edit book with this form</p>
 				<form action="<?php echo URLROOT ?>/books/edit/<?php echo $data['id']; ?>" method="POST" enctype="multipart/form-data">
 					<div class="row">

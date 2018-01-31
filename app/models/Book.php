@@ -12,6 +12,17 @@
 			return $results;
 		}
 
+		public function checkBookIfOrdered($bookId){
+			$this->db->query("SELECT * FROM order_details WHERE item_id = :item_id");
+			$this->db->bind(":item_id", $bookId);
+			$this->db->execute();
+			if($this->getRowCount() > 0){
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 		public function getBooksBySearch($name, $genre){
 			$search = "%$name%";
 			if($genre == "0"){

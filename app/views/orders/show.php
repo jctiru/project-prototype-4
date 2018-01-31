@@ -9,7 +9,7 @@
                     <h5 class="mb-md-0 mb-sm-2"><i class="fa fa-list-alt fa-lg"></i> Order Details</h5>
                 </div>
                 <div class="col-md-6">
-                    <h5 class="mb-0"><i class="fa fa-calendar" fa-lg"></i> Order Date: <?php echo $data['orderDate'] ?></h5>
+                    <h5 class="mb-0"><i class="fa fa-calendar fa-lg"></i> Order Date: <?php echo $data['orderDate'] ?></h5>
                 </div>
             </div>
         </div>

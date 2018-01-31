@@ -6,12 +6,42 @@
 			$this->db = new Database();	
 		}
 
+		public function getOrders(){
+			$this->db->query("SELECT * FROM orders");
+			$results = $this->db->resultSet();
+			return $results;
+		}
+
 		public function getOrdersById($userId){
 			$customerId = $this->getCustomerId($userId);
 			$this->db->query("SELECT * FROM orders WHERE customer_id = :customer_id ORDER BY order_date DESC");
 			$this->db->bind(":customer_id", $customerId);
 			$results = $this->db->resultSet();
 			return $results;
+		}
+
+		public function getOrdersByPagination($offset, $limiter){
+			$this->db->query("SELECT * FROM orders ORDER BY order_date DESC LIMIT :offset, :limiter");
+			// Bind values
+			$this->db->bind(":offset", $offset);
+			$this->db->bind(":limiter", $limiter);
+			$results = $this->db->resultSet();
+			return $results;
+		}
+
+		public function getOrdersByIdPagination($offset, $limiter, $userId){
+			$customerId = $this->getCustomerId($userId);
+			$this->db->query("SELECT * FROM orders WHERE customer_id = :customer_id ORDER BY order_date DESC LIMIT :offset, :limiter");
+			// Bind values
+			$this->db->bind(":offset", $offset);
+			$this->db->bind(":limiter", $limiter);
+			$this->db->bind(":customer_id", $customerId);
+			$results = $this->db->resultSet();
+			return $results;
+		}
+
+		public function getRowCount(){
+			return $this->db->rowCount();
 		}
 
 		public function getOrderDetailsById($orderId){
@@ -51,7 +81,7 @@
 			}
 		}
 
-		private function getCustomerId($userId){
+		public function getCustomerId($userId){
 			$this->db->query("SELECT * FROM customers WHERE user_id = :user_id");
 			$this->db->bind(":user_id", $userId);
 			$result = $this->db->single();
