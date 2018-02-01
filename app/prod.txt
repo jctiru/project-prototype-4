@@ -1,0 +1,41 @@
+// app/config/config.php
+<?php 
+	// DB Params
+	define('DB_HOST', 'example');
+	define('DB_USER', 'example');
+	define('DB_PASS', 'example');
+	define('DB_NAME', 'example');
+	define('DB_CHAR', 'example');
+	// App Root
+	define('APPROOT', dirname(dirname(__FILE__)));
+	// Public Root
+	define('PUBLICROOT', dirname(dirname(dirname(__FILE__))) . '/public');
+	// URL Root
+	define('URLROOT', 'http://project-prototype-4.000webhostapp.com');
+	// Site Name
+	define('SITENAME', "LNShop");
+	// App Version
+	define('APPVERSION', 'v1.0.0');
+ ?>
+
+//public/.htaccess
+<IfModule mod_rewrite.c>
+	Options -Multiviews
+	RewriteEngine On
+	RewriteBase /public
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+</IfModule>
+
+//.htaccess
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteRule ^$ public/ [L]
+	RewriteRule (.*) public/$1 [L]
+</IfModule>
+php_value output_buffering 1
+
+//public/js.main.js
+$.ajax({
+            url: 'http://project-prototype-4.000webhostapp.com/users/ajaxaddcart',
