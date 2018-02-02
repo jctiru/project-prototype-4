@@ -11,7 +11,7 @@
 	// Public Root
 	define('PUBLICROOT', dirname(dirname(dirname(__FILE__))) . '/public');
 	// URL Root
-	define('URLROOT', 'http://project-prototype-4.000webhostapp.com');
+	define('URLROOT', 'https://project-prototype-4.000webhostapp.com');
 	// Site Name
 	define('SITENAME', "LNShop");
 	// App Version
@@ -37,5 +37,4 @@
 php_value output_buffering 1
 
 //public/js.main.js
-$.ajax({
-            url: 'http://project-prototype-4.000webhostapp.com/users/ajaxaddcart',
+var URLROOT = 'https://project-prototype-4.000webhostapp.com';

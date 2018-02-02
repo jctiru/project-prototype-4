@@ -1,8 +1,10 @@
+var URLROOT = 'http://localhost/project-prototype-4';
+
 $(document).ready(function() {
     // Add to Cart on Shop Page
     $("#cart-button").click(function() {
         $.ajax({
-            url: 'http://localhost/project-prototype-4/users/ajaxaddcart',
+            url: URLROOT+'/users/ajaxaddcart',
             type: 'POST',
             data: {
                 index: $(this).data('index')
@@ -41,7 +43,7 @@ $(document).ready(function() {
         e.preventDefault();
         startBlockingCart();
         $.ajax({
-            url: 'http://localhost/project-prototype-4/users/ajaxupdatecart',
+            url: URLROOT+'/users/ajaxupdatecart',
             type: 'POST',
             data: $('#cart-form').serializeArray(),
             beforeSend: function() {
@@ -99,7 +101,7 @@ $(document).ready(function() {
         startBlockingCart();
         var data = { 'bookRowId': bookRowId };
         $.ajax({
-            url: 'http://localhost/project-prototype-4/users/ajaxdeletecart',
+            url: URLROOT+'/users/ajaxdeletecart',
             type: 'POST',
             data: $('#cart-form').serialize() + '&' + $.param(data),
             beforeSend: function() {
@@ -139,7 +141,7 @@ $(document).ready(function() {
             return false;
         } else {
             // if from direct url input, go to shop page
-            window.location.href = "http://localhost/project-prototype-4/books";
+            window.location.href = URLROOT+"/books";
             return false;
         }
     });

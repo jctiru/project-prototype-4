@@ -180,6 +180,7 @@
 					$data = [
 						'image' => $_FILES['image']['name'],
 						'image_dir' => $_FILES['image']['tmp_name'],
+						'image_size' => $_FILES['image']['size'],
 						'name' => trim($_POST['name']),
 						'description' => trim($_POST['description']),
 						'price' => $_POST['price'],
@@ -207,6 +208,15 @@
 						$data['image_err'] = "Please upload valid image (jpeg, jpg, png, gif)";
 					} elseif (file_exists($target_file)){
 						$data['image_err'] = "Image already exists";
+					} elseif($_FILES['image']['error'] == 2){
+						// UPLOAD_ERR_FORM_SIZE 
+						// Value: 2; The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.
+						// <input type="hidden" name="MAX_FILE_SIZE" value="300000">
+						$data['image_err'] = "Image file too large";
+					} elseif ($data['image_size'] > 300000){
+						// In case user is geeky enough to bypass max image file size in client side
+						// Limit image size to 300KB
+						$data['image_err'] = "Image file too large";
 					}
 					if(empty($data['name'])){
 						$data['name_err'] = "Please enter name";
@@ -291,7 +301,8 @@
 						$data = [
 							'id' => $id,
 							'image' => $_FILES['image']['name'],
-							'image_dir' => $_FILES['image']['tmp_name'],						
+							'image_dir' => $_FILES['image']['tmp_name'],
+							'image_size' => $_FILES['image']['size'],						
 							'name' => trim($_POST['name']),
 							'description' => trim($_POST['description']),
 							'price' => $_POST['price'],
@@ -314,6 +325,15 @@
 							$data['image_err'] = "Please upload valid image (jpeg, jpg, png, gif)";
 						} elseif (file_exists($target_file)){
 							$data['image_err'] = "Image already exists";
+						} elseif($_FILES['image']['error'] == 2){
+							// UPLOAD_ERR_FORM_SIZE 
+							// Value: 2; The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.
+							// <input type="hidden" name="MAX_FILE_SIZE" value="300000">
+							$data['image_err'] = "Image file too large";
+						} elseif ($data['image_size'] > 300000){
+							// In case user is geeky enough to bypass max image file size in client side
+							// Limit image size to 300KB
+							$data['image_err'] = "Image file too large";
 						}
 					} else {
 						$data = [

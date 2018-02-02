@@ -10,7 +10,9 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="image">Image <sup>*</sup></label>
+								<label for="image">Image <sup>*</sup> <em>Max 300KB</em></label>
+								<!-- Set max upload size to 300KB before interrupting upload -->
+								<input type="hidden" name="MAX_FILE_SIZE" value="300000">
 								<input type="file" name="image" accept="image/*" onchange="loadFile(event)" class="form-control-file form-control-sm form-control <?php echo (!empty($data['image_err'])) ? 'is-invalid' : '' ?>" value="<?php echo $data['image'] ?>">
 								<span class="invalid-feedback"><?php echo $data['image_err'] ?></span>
 								<hr>
