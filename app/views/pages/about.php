@@ -1,6 +1,11 @@
 <?php require APPROOT .'/views/inc/header.php'; ?>
+<!-- Jumbotron -->
+<div class="container">    
+    <div id="pages-about-jumbotron" class="jumbotron text-center py-4 mb-3">
+        <h1 class="text-white jumbotron-text-shadow">About</h1>
+    </div>
+</div>
 <div class="container pt-2 pb-5 mb-5">
-    <h1 class="text-dark mb-3"><i class="fa fa-user-circle"></i>About</h1>
     <div class="row">
         <div class="col-md-6 mb-3">
             <img src="<?php echo IMGSRC?>download-min.jpg" class="w-100">

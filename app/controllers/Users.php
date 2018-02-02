@@ -167,6 +167,7 @@ class Users extends Controller
                 // Check and set logged in user
                 $loggedInUser = $this->userModel->login($data['email'], $data['password']);
                 if ($loggedInUser) {
+                    flash('loginout_message', 'Log-in successful');
                     // Create Session
                     $this->createUserSession($loggedInUser);
                 } else {
@@ -382,6 +383,10 @@ class Users extends Controller
         unset($_SESSION['user_name']);
         unset($_SESSION['admin_mode']);
         session_destroy();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        flash('loginout_message', 'Log-out successful');
         redirect("");
     }
 }

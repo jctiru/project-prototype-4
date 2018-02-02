@@ -1,8 +1,12 @@
 <?php require APPROOT .'/views/inc/header.php'; ?>
+<!-- Jumbotron -->
+<div class="container">    
+    <div id="pages-contact-jumbotron" class="jumbotron text-center py-4 mb-3">
+        <h1 class="text-white jumbotron-text-shadow">Contact</h1>
+    </div>
+</div>
 <!-- Contact -->
 <section class="container mt-4 mb-5 pb-5">
-    <!--Contact heading-->
-    <h1 class="m-0 text-dark"><i class="fa fa-address-card"></i>Contact us</h1>
     <!--Contact description-->
     <p class="pb-4 text-dark">We'd love to hear from you. You can either reach out to us as a whole and one of our awesome team members will get back to you, or if you have a specific question reach out to one of our staff. We love getting emails all day.</p>
     <div class="row">

@@ -1,9 +1,10 @@
 <?php require APPROOT .'/views/inc/header.php'; ?>
 <!-- Jumbotron -->
 <div class="container">
+    <?php flash('loginout_message') ?>
 	<div id="primary-jumbotron" class="jumbotron jumbotron-fluid text-center mb-3">
 		<div id="font-jumbotron-text" class="container py-5 my-5">
-			<h1 class="text-white display-4">The LNShop</h1>
+			<h1 class="text-white display-4 primary-jumbotron-text-shadow">The LNShop</h1>
 			<p class="lead">Go buy your favorite Light Novels</p>
 		</div>
 	</div>
@@ -41,7 +42,6 @@
 <div class="container-fluid pb-3">    
     <div id="secondary-jumbotron" class="jumbotron">
         <h3 class="text-white">Browse through our collection of light novels</h3>
-        <!-- <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p> -->
         <blockquote class="blockquote">
             <p class="mb-0">Books are a uniquely portable magic.</p>
             <div class="blockquote-footer">Stephen King</div>

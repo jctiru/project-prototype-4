@@ -1,6 +1,7 @@
 <?php 
-	session_start();
-
+	if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+    }
 	// Flash message helper
 	// Example - flash('register_success', 'You are now registered', 'alert alert-danger');
 	// Display in View - echo flash('register_success');

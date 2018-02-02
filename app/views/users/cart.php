@@ -1,5 +1,11 @@
 <?php require APPROOT . '/views/inc/header.php';?>
-<div class="container mt-5 mb-5 pb-5">
+<!-- Jumbotron -->
+<div class="container">    
+    <div id="users-cart-jumbotron" class="jumbotron text-center py-4 mb-3">
+        <h1 class="text-white jumbotron-text-shadow">Cart</h1>
+    </div>
+</div>
+<div class="container mt-2 mb-5 pb-5">
     <?php flash('checkout_message') ?>
     <div id="cart-alert" style="display: none;" class="alert alert-dismissible alert-success fade show">
         <button type="button" class="close" id="cart-alert-close">&times;</button>

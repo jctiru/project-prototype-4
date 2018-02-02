@@ -1,6 +1,9 @@
 <?php require APPROOT .'/views/inc/header.php'; ?>
-<div class="container pt-3 pb-1">
-	<h1 class="text-dark"><i class="fa fa-list-alt fa-lg"></i>Transaction History</h1>
+<!-- Jumbotron -->
+<div class="container">    
+    <div id="orders-index-jumbotron" class="jumbotron text-center py-4 mb-3">
+        <h1 class="text-white jumbotron-text-shadow">Orders History</h1>
+    </div>
 </div>
 <div class="container mt-1 mb-5">
 	<?php foreach($data['orders'] as $order): ?>

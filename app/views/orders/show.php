@@ -1,5 +1,11 @@
 <?php require APPROOT .'/views/inc/header.php'; ?>
-<div class="container mb-5">
+<!-- Jumbotron -->
+<div class="container">    
+    <div id="orders-show-jumbotron" class="jumbotron text-center py-4 mb-3">
+        <h1 class="text-white jumbotron-text-shadow">Order Details</h1>
+    </div>
+</div>
+<div class="container pb-5 mb-5">
     <a href="" class="btn btn-ligth mb-2 back"><i class="fa fa-backward"></i> Back</a>
     <br>
 	<div id="cart-section" class="card border-secondary">

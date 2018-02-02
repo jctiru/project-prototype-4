@@ -1,5 +1,5 @@
 <?php require APPROOT .'/views/inc/header.php'; ?>
-<div class="container my-5">
+<div class="container my-5 pb-5">
 	<div class="row">
 		<div class="col-md-6 mx-auto">
 			<div class="card card-body border-secondary bg-light mt-5 mb-5">

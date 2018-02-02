@@ -17,3 +17,82 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+
+#books-index-jumbotron {
+	background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ), url(../img/battle_of_kuska_by_edictiv-d47yq6v-min.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#books-show-jumbotron {
+	background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ), url(../img/173878-min.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#users-cart-jumbotron {
+	background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ), url(../img/Webp.net-resizeimage-min.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#pages-about-jumbotron {
+	background-image: linear-gradient(
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
+    ), url(../img/Hendrik_Cornelisz._Vroom_-_Battle_of_Gibraltar_-_WGA25406-min.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#pages-contact-jumbotron {
+	background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ), url(../img/amonkhet_by_88grzes-db4zkjr-min.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#orders-index-jumbotron {
+	background-image: linear-gradient(
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.3)
+    ), url(../img/AR2-min.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#orders-show-jumbotron {
+	background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ), url(../img/tumblr_nwqidyDT591s78jblo7_1280-min.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.jumbotron-text-shadow {
+	font-size: 2.5rem;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.primary-jumbotron-text-shadow {
+    text-shadow: 3px 3px 6px #000000;
+}
