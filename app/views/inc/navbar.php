@@ -42,6 +42,16 @@
             </li>
           <?php else: ?>
             <li class="nav-item">
+              <a class="nav-link" href="<?php echo URLROOT; ?>/users/cart"><i class="fa fa-shopping-cart fa-lg"></i>
+              <strong id="cartItems">
+                <?php if (isset($_SESSION['cart'])): ?>
+                    <?php echo array_sum($_SESSION['cart']) ?>
+                <?php else: ?>
+                    <?php echo 0 ?>
+                <?php endif;?>
+              </strong> Cart</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="<?php echo URLROOT; ?>/users/register">Register</a>
             </li>
             <li class="nav-item">

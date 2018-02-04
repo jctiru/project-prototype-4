@@ -298,37 +298,32 @@ class Users extends Controller
     // Cart page
     public function cart()
     {
-        // Check if there is user logged in
-        if (isset($_SESSION['user_id'])) {
-            // Check if it is a customer
-            if (!isset($_SESSION['admin_mode'])) {
-                // Check if there is items in cart
-                if (isset($_SESSION['cart'])) {
-                    $bookIdArray = [];
-                    
-                    foreach ($_SESSION['cart'] as $key => $value) {
-                        array_push($bookIdArray, $key);
-                    }
-
-                    $books = $this->bookModel->getMultipleBooksById($bookIdArray);  
-                    $books = $this->initializeCartBooks($books);
-                    $totalPrice = $this->computeTotalPriceCartBooks($books);
-
-                    $data = [
-                        'books'      => $books,
-                        'totalPrice' => $totalPrice,
-                    ];
-
-                    // Load view
-                    $this->view('users/cart', $data);
-                } else {
-                    // Empty cart
-                    $data = [];
-                    // Load empty view
-                    $this->view('users/cart', $data);
+        // Check if it is a customer
+        if (!isset($_SESSION['admin_mode'])) {
+            // Check if there is items in cart
+            if (isset($_SESSION['cart'])) {
+                $bookIdArray = [];
+                
+                foreach ($_SESSION['cart'] as $key => $value) {
+                    array_push($bookIdArray, $key);
                 }
+
+                $books = $this->bookModel->getMultipleBooksById($bookIdArray);  
+                $books = $this->initializeCartBooks($books);
+                $totalPrice = $this->computeTotalPriceCartBooks($books);
+
+                $data = [
+                    'books'      => $books,
+                    'totalPrice' => $totalPrice,
+                ];
+
+                // Load view
+                $this->view('users/cart', $data);
             } else {
-                redirect('books');
+                // Empty cart
+                $data = [];
+                // Load empty view
+                $this->view('users/cart', $data);
             }
         } else {
             redirect('books');

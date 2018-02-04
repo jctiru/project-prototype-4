@@ -110,11 +110,38 @@
                     </h4>
                 </div>
                 <div class="col-md-3">
+                    <?php if(isset($_SESSION['user_id'])): ?>
                     <form method="POST" action="<?php echo URLROOT ?>/users/checkout">
                         <button id="checkout-button" type="submit" <?php echo (isset($_SESSION['cart']) && array_sum($_SESSION['cart'])>0) ? '' : 'disabled'; ?> class="btn btn-success btn-block">
                             <i class="fa fa-shopping-basket"></i> Checkout
                         </button>
                     </form>
+                    <?php else: ?>
+                        <!-- Button trigger modal -->
+                        <button id="checkout-button" type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#cartModal" <?php echo (isset($_SESSION['cart']) && array_sum($_SESSION['cart'])>0) ? '' : 'disabled'; ?>>
+                            <i class="fa fa-shopping-basket"></i> Checkout
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="cartModal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Login</h5>
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span>&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Eyeing a book? Come and log-in to start shopping!
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <a class="btn btn-primary pull-right" href="<?php echo URLROOT ?>/users/login">Login</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
