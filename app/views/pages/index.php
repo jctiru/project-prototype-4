@@ -5,7 +5,7 @@
 	<div id="primary-jumbotron" class="jumbotron jumbotron-fluid text-center mb-3">
 		<div id="font-jumbotron-text" class="container py-5 my-5">
 			<h1 class="text-white display-4 primary-jumbotron-text-shadow">The LNShop</h1>
-			<p class="lead">Go buy your favorite Light Novels</p>
+			<p class="lead text-light">Go buy your favorite Light Novels</p>
 		</div>
 	</div>
 </div>
