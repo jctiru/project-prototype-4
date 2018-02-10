@@ -2,7 +2,7 @@
 ### The LNShop
 https://project-prototype-4.000webhostapp.com/
 
-Simple eCommerce website with custom MVC framework using:
+Simple eCommerce website with Object Oriented PHP and custom MVC framework using:
 - PHP
 - MySQL
 - PDO
